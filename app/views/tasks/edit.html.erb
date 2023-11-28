@@ -1,1 +1,8 @@
-<%# a mediter %> 
+<h2>Modifiez une tache</h2>
+
+ <%= simple_form_for [@event, @task] do |f| %>
+  <%= f.input :description, label: "Description"%>
+  <%= f.input :cost, label: "Coût" %>
+  <%= f.association :user, prompt: "Select a user" %>
+  <%= f.submit 'Créer', class: 'btn btn-light' %>
+<% end %>
