@@ -5,6 +5,8 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @chatroom = @event.chatroom
+    @message = Message.new
   end
 
   def new
@@ -16,6 +18,7 @@ class EventsController < ApplicationController
     @event.user = current_user
     @event.save
     if @event.save
+      @chatroom = Chatroom.create(name: "Welcome to #{@event.title}", event: @event)
       redirect_to event_path(@event)
     else
       render :new, status: :unprocessable_entity
