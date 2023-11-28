@@ -4,9 +4,12 @@
 <p><%= @event.description %></p>
 
 <p><%= link_to "back to events", events_path %></p>
-<%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>
+<% if policy(@event).edit? %>
+  <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>|
+<% end %>
+<% if policy(@event).destroy? %>
 <%= link_to "Supprimer", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%>
-
+<% end %>
 <div class="container chatroom"
   data-controller="chatroom-subscription"
   data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"

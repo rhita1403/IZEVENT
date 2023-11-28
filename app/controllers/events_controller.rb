@@ -1,20 +1,24 @@
 class EventsController < ApplicationController
   def index
     @events = Event.all
+    @events = policy_scope(Event)
   end
 
   def show
     @event = Event.find(params[:id])
     @chatroom = @event.chatroom
     @message = Message.new
+    authorize @event
   end
 
   def new
     @event = Event.new
+    authorize @event
   end
 
   def create
     @event = Event.new(event_params)
+    authorize @event
     @event.user = current_user
     @event.save
     if @event.save
@@ -27,18 +31,22 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    authorize @event
   end
 
   def update
     @event = Event.find(params[:id])
     @event.update(event_params)
     redirect_to event_path(@event)
+    authorize @event
   end
 
   def destroy
     @event = Event.find(params[:id])
+    authorize @event
     @event.destroy
     redirect_to events_path, status: :see_other
+
   end
 
   private
