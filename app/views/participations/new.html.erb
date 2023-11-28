@@ -1,2 +1,5 @@
-<h1>Hello</h1>
-<%# est ce que j'ai besoin de cette view? %>
+<h3>Add a participation to your event <%= @event.title %></h3>
+<%= simple_form_for [@event, @participation] do |f| %>
+  <%= f.association :user, prompt: "Select a user" %>
+  <%= f.submit class: "btn btn-flat" %>
+<% end %>

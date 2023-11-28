@@ -5,16 +5,15 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    @review = review.new(review_params)
+    @review = Review.new(review_params)
     @review.event = @event
     @review.save
     if @review.save
-      redirect_to review_path(@review)
+      redirect_to event_path(@event)
     else
       render :new, status: :unprocessable_entity
     end
   end
-  # path va-t-il fonctionner?
 
   private
 
