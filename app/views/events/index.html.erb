@@ -1,0 +1,6 @@
+<ul>
+<% @events.each do |event|%>
+  <li><%= link_to event.title, event_path(event.id) %></li>
+<% end %>
+<%= link_to "Créer", new_event_path, class: 'btn btn-light' %>
+</ul>

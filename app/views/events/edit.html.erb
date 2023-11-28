@@ -1,0 +1,15 @@
+<div class="container margin-top-negative">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <%= simple_form_for [@event], html: { multipart: true } do |f| %>
+          <%= f.input :title, as: :string %>
+          <%= f.input :location, as: :string %>
+          <%= f.input :date, as: :date %>
+          <%= f.input :description, as: :text %>
+          <%= f.submit 'Mettre à jour' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<p><%= link_to "retour", class: 'btn btn-primary' %></p>
