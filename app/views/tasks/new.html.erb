@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-6 m-auto">
+      <h1>Créer une nouvelle tâche</h1>
+      <div class="mt-3">
+        <%= simple_form_for @task do |f| %>
+          <%= f.input :description, label: "Description"%>
+          <%= f.input :cost, label: "Coût" %>
+          <div class="d-grid gap-2 col-6 mx-auto"> <%= f.submit 'Créer', class: 'btn btn-light' %> </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
