@@ -1,0 +1,9 @@
+<%= simple_form_for @event do |f| %>
+  <%= f.input :title %>
+  <%= f.input :location %>
+  <%= f.input :date %>
+  <%= f.input :description %>
+  <%= f.submit %>
+<% end %>
+
+<p><%= link_to "back to events", events_path %></p>
