@@ -9,6 +9,7 @@
 #   end
 
 puts "Cleaning database..."
+
 Review.destroy_all
 Task.destroy_all
 Participation.destroy_all
@@ -16,6 +17,7 @@ Event.destroy_all
 User.destroy_all
 
 puts "Creating seeds..."
+
 william = User.create(first_name: 'william', last_name: 'varsovie', email: 'william.varsovie@gmail.com', password: '123456', phone_number: '0123456')
 rhita = User.create(first_name: 'rhita', last_name: 'lamdouar', email: 'rhita.lamdouar@hotmail.com', password: '123456', phone_number: '456789')
 manger_des_haribos = Event.create(title: "Haribo", location: "7 Boundary St, London E2 7JE", date: "2023 November 27", description: "on va grossir", user: william)
