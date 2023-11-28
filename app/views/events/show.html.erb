@@ -1,0 +1,10 @@
+<h2><%= @event.title %></h2>
+<p><%= @event.location %></p>
+<p><%= @event.date %></p>
+<p><%= @event.description %></p>
+
+<p><%= link_to "back to events", events_path %></p>
+<%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>
+
+<%= link_to "Supprimer", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%>
+
