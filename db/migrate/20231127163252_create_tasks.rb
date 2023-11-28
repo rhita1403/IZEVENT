@@ -3,8 +3,8 @@ class CreateTasks < ActiveRecord::Migration[7.1]
     create_table :tasks do |t|
       t.text :description
       t.float :cost
-      t.references :user, null: false, foreign_key: true
-      t.references :todolist, null: false, foreign_key: true
+      t.references :user, foreign_key: true
+      t.references :event, null: false, foreign_key: true
 
       t.timestamps
     end
