@@ -1,0 +1,7 @@
+<%= simple_form_for [@participation], html: { multipart: true } do |f| %>
+    <%= f.label :participating %>
+    <%= f.check_box :participating %>
+    <%= f.submit 'Mettre à jour' %>
+<% end %>
+<%# est ce que j'ai besoin de cette view? %>
+<%# il doit être dans la view de event non? %>
