@@ -1,0 +1,4 @@
+<%= simple_form_for [@event, @participation], html: { multipart: true } do |f| %>
+    <%= f.input :participating, as: :boolean, label: "Participating?"%>
+    <%= f.submit 'Mettre à jour' %>
+<% end %>
