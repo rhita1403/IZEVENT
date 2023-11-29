@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     @reviews = @event.reviews
     authorize @event
     @tasks = @event.tasks
+    @participations = @event.participations
   end
 
   def new
