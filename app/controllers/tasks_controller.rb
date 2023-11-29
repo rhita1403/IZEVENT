@@ -25,6 +25,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
+    authorize @task
     @task.update(task_params)
     redirect_to event_path(@task.event)
   end
