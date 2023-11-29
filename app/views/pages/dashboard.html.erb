@@ -5,7 +5,7 @@
 <% end %>
 
 <%# ---------------- Participant section ----------- %>
-<p> Les events auxquels tu es invité :</p>
+<p> Les events auxquels je suis invité :</p>
 <% @participations.each do |participation|%>
   <% if participation.participating == nil %>
    <p><%=participation.event.title %></p>
@@ -13,11 +13,13 @@
     <%= button_to 'Refuser invitation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
   <%end %>
 <%end %>
-<p> Les events auxquels tu participes :</p>
+<p> Les events auxquels je participe :</p>
 <% @participations.each do |participation|%>
   <% if participation.participating == true %>
-    <p><%=participation.event.title %></p>
-    <%= button_to 'Annuler participation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+    <% unless @my_events.include?(participation.event) %>
+      <p><%=participation.event.title %></p>
+      <%= button_to 'Annuler participation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+    <%end %>
   <%end %>
 <% end %>
 <br>
