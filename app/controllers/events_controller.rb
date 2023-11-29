@@ -10,6 +10,7 @@ class EventsController < ApplicationController
     @message = Message.new
     @reviews = @event.reviews
     authorize @event
+    @tasks = @event.tasks
   end
 
   def new
