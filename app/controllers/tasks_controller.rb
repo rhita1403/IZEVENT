@@ -30,6 +30,13 @@ class TasksController < ApplicationController
     redirect_to event_path(@task.event)
   end
 
+  def destroy
+    skip_authorization
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to event_path(@task.event)
+  end
+
   private
 
   def task_params

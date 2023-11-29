@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create, :edit, :update]
     resources :tasks, only: [:new, :create, :edit, :update]
   end
+  resources :tasks, only: :destroy, as: "destroy_task"
+  resources :participations, only: :destroy, as: "destroy_participation"
   resources :participations, only: [] do
     member do
       patch :confirm
@@ -28,3 +30,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 end
+
+# scope 'tasks' do
+#   resources :photos, as: 'admin_photos'
+# end
