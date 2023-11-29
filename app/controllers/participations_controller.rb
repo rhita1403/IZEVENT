@@ -2,6 +2,7 @@ class ParticipationsController < ApplicationController
   def new
     @participation = Participation.new
     @event = Event.find(params[:event_id])
+    authorize @participation
   end
 
   def create

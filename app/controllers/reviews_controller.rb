@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   before_action :set_event, only: %i[new create]
   def new
     @review = Review.new
+    authorize @review
   end
 
   def create

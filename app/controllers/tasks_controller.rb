@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @event = Event.find(params[:event_id])
+    authorize @task
   end
 
   def create
