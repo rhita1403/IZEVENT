@@ -7,6 +7,7 @@ class ParticipationsController < ApplicationController
 
   def create
     @participation = Participation.new(participation_params)
+    authorize @participation
     @event = Event.find(params[:event_id])
     @participation.event = @event
     if @participation.save
@@ -18,22 +19,26 @@ class ParticipationsController < ApplicationController
 
   def edit
     @participation = Participation.find(params[:id])
+    authorize @participation
   end
 
   def update
     @participation = Participation.find(params[:id])
+    authorize @participation
     @participation.update(participation_params)
     redirect_to event_path(@event)
   end
 
   def confirm
     @participation = Participation.find(params[:id])
+    authorize @participation
     @participation.update(participating: true)
     redirect_to dashboard_path, notice: 'Participation confirmée avec succès.'
   end
 
   def decline
     @participation = Participation.find(params[:id])
+    authorize @participation
     @participation.update(participating: false)
     redirect_to dashboard_path, notice: 'Participation refusée avec succès.'
   end

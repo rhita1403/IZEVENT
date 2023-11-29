@@ -1,14 +1,14 @@
 class TasksController < ApplicationController
   def new
     @task = Task.new
-    @event = Event.find(params[:event_id])
     authorize @task
+    @event = Event.find(params[:event_id])
   end
 
   def create
     @task = Task.new(task_params)
+    authorize @task
     @event = Event.find(params[:event_id])
-
     @task.event = @event
     if @task.save
       redirect_to event_path(@event)
@@ -19,6 +19,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
+    authorize @task
     @event = Event.find(params[:event_id])
     @task.event = @event
     if @task.save

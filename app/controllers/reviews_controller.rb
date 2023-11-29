@@ -7,6 +7,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
+    authorize @review
     @review.event = @event
     @review.save
     if @review.save
