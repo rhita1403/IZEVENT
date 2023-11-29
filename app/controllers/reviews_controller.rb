@@ -15,6 +15,18 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def edit
+    @review = Review.find(params[:id])
+    @event = Event.find(params[:event_id])
+  end
+
+  def update
+    @review = Review.find(params[:id])
+    @review.update(review_params)
+    redirect_to event_path(@review.event)
+  end
+
+
   private
 
   def set_event

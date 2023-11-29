@@ -8,6 +8,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @chatroom = @event.chatroom
     @message = Message.new
+    @reviews = @event.reviews
     authorize @event
   end
 

@@ -3,8 +3,15 @@
 <p><%= @event.date %></p>
 <p><%= @event.description %></p>
 
+<% @reviews.each do |review| %>
+  <!-- Afficher les détails de chaque critique ici -->
+  <p>note :<%= review.rating %></p>
+  <p>commentaire :<%= review.feedback %></p>
+  <p><%= link_to "modifier votre avis", edit_event_review_path(@event, review) %></p>
+<% end %>
 
 <p><%= link_to "back to events", events_path %></p>
+<p><%= link_to "comment this event", new_event_review_path(@event) %></p>
 <% if policy(@event).edit? %>
   <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>|
 <% end %>
