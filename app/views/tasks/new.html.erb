@@ -4,8 +4,6 @@
   <%= f.input :description, label: "Description"%>
   <%= f.input :cost, label: "Coût" %>
   <%= f.association :user, prompt: "Select a user" %>
-  <%= f.submit 'Créer', class: 'btn btn-light' %>
+  <%= f.submit 'Valider la tâche', class: 'btn btn-light' %>
 <% end %>
-
-
-<p><%= link_to "back to events", event_path(@event) %>
+<p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'btn btn-light' %>
