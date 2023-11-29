@@ -8,6 +8,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    @my_events = Event.where(user_id: current_user.id)
     @user = current_user
     @participations = @user.participations
   end
