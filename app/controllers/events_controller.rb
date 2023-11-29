@@ -9,6 +9,7 @@ class EventsController < ApplicationController
     @chatroom = @event.chatroom
     @message = Message.new
     authorize @event
+    @tasks = @event.tasks
   end
 
   def new
