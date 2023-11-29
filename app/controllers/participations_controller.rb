@@ -11,7 +11,7 @@ class ParticipationsController < ApplicationController
     @event = Event.find(params[:event_id])
     @participation.event = @event
     if @participation.save
-      redirect_to event_path(@event)
+      redirect_to new_event_task_path(@event)
     else
       render :new, status: :unprocessable_entity
     end

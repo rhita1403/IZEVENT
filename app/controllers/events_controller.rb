@@ -25,8 +25,9 @@ class EventsController < ApplicationController
     @event.user = current_user
     @event.save
     if @event.save
+      @participation = Participation.create(user: current_user, event: @event, participating: true)
       @chatroom = Chatroom.create(name: "Welcome to #{@event.title}", event: @event)
-      redirect_to event_path(@event)
+      redirect_to new_event_participation_path(@event)
     else
       render :new, status: :unprocessable_entity
     end
@@ -49,12 +50,11 @@ class EventsController < ApplicationController
     authorize @event
     @event.destroy
     redirect_to events_path, status: :see_other
-
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:title, :location, :date, :description)
+    params.require(:event).permit(:title, :location, :date, :description, :photo)
   end
 end
