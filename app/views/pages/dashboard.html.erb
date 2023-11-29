@@ -1,7 +1,24 @@
-<% @participations.each do |participation|%>
-  <p> tu es invité à l'event suivant : <%=participation.event.title%></p>
-  <%= participation.participating %>
-  <%= button_to 'Accepter invitation', confirm_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
-  <%= button_to 'Refuser invitation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+<%# ---------------- Creator section --------------- %>
+<p> Les events que j'ai créé :</p>
+<% @my_events.each do |event| %>
+  <p><%=event.title %></p>
 <% end %>
-<%# ajouter un if avant pour ne montrer les boutons que pour les participations dont le participating est false, et pour les true juste les afficher mais pas montrer les 2 boutons %>
+
+<%# ---------------- Participant section ----------- %>
+<p> Les events auxquels tu es invité :</p>
+<% @participations.each do |participation|%>
+  <% if participation.participating == nil %>
+   <p><%=participation.event.title %></p>
+    <%= button_to 'Accepter invitation', confirm_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+    <%= button_to 'Refuser invitation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+  <%end %>
+<%end %>
+<p> Les events auxquels tu participes :</p>
+<% @participations.each do |participation|%>
+  <% if participation.participating == true %>
+    <p><%=participation.event.title %></p>
+    <%= button_to 'Annuler participation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+  <%end %>
+<% end %>
+<br>
+<%= link_to "Retour aux events", events_path, class: 'btn btn-light' %>
