@@ -21,19 +21,13 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize @task
     @event = Event.find(params[:event_id])
-    @task.event = @event
-    if @task.save
-      redirect_to event_path(@event)
-    else
-      render :new, status: :unprocessable_entity
-    end
   end
 
-  # def update
-  #   @task = Task.find(params[:id])
-  #   @task.update(task_params)
-  #   redirect_to task_path(@task)
-  # end
+  def update
+    @task = Task.find(params[:id])
+    @task.update(task_params)
+    redirect_to event_path(@task.event)
+  end
 
   private
 

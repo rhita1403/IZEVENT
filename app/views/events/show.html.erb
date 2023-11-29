@@ -2,8 +2,16 @@
 <p><%= @event.location %></p>
 <p><%= @event.date %></p>
 <p><%= @event.description %></p>
+<% @tasks.each do |task| %>
+  <!-- Afficher les détails de chaque tache ici -->
+  <div>
+    <p>Tache: <%= task.description %></p>
+    <p>Coût:<%= task.cost %></p>
+    <p><%= link_to "Modifier une tache", edit_event_task_path(@event, task) %></p>
+  </div>
+<% end %>
 
-
+<p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
 <p><%= link_to "back to events", events_path %></p>
 <% if policy(@event).edit? %>
   <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>|
