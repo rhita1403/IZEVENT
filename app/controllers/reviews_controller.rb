@@ -19,11 +19,13 @@ class ReviewsController < ApplicationController
 
   def edit
     @review = Review.find(params[:id])
+    authorize @review
     @event = Event.find(params[:event_id])
   end
 
   def update
     @review = Review.find(params[:id])
+    authorize @review
     @review.update(review_params)
     redirect_to event_path(@review.event)
   end
