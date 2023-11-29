@@ -8,4 +8,6 @@ class Event < ApplicationRecord
 
   validates :title, presence: true, uniqueness: true
   validates :date, presence: true
+
+  has_one_attached :photo
 end

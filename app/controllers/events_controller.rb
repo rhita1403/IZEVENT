@@ -49,12 +49,11 @@ class EventsController < ApplicationController
     authorize @event
     @event.destroy
     redirect_to events_path, status: :see_other
-
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:title, :location, :date, :description)
+    params.require(:event).permit(:title, :location, :date, :description, :photo)
   end
 end
