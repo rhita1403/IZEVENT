@@ -1,4 +1,5 @@
 <h2><%= @event.title %></h2>
+<%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill %>
 <p><%= @event.location %></p>
 <p><%= @event.date %></p>
 <p><%= @event.description %></p>
