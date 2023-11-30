@@ -1,5 +1,5 @@
 <h2><%= @event.title %></h2>
-<%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill %>
+<%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill if @event.photo.attached?%>
 <p><%= @event.location %></p>
   <div style="width: 30%; height: 300px;"
     data-controller="map"
@@ -63,9 +63,17 @@
 <% end %>
 <p><%= link_to "ajouter un invite", new_event_participation_path(@event, @participation) %></p>
 
+<%# Boite 5: Dépenses %>
+<h2 style = "color: red">Dépenses</h2>
+<% @event.users.each do |user| %>
+  <div>
+    <p>
+      <%= user.first_name %> <%= user.last_name %> :  <%= Task.where(user: user, event: @event).map {|element| element.cost.to_i}.sum %>
+    </p>
+  </div>
+<% end %>
 
-
-<%# Boite 5:Chatroom %>
+<%# Boite 6:Chatroom %>
 <div class="container chatroom"
   data-controller="chatroom-subscription"
   data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"

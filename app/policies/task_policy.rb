@@ -16,6 +16,10 @@ class TaskPolicy < ApplicationPolicy
     true
   end
 
+  def add?
+    true
+  end
+
   def edit?
     true
   end
