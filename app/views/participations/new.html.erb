@@ -1,5 +1,11 @@
-<h3>Add a participation to your event <%= @event.title %></h3>
-<%= simple_form_for [@event, @participation] do |f| %>
-  <%= f.association :user, prompt: "Select a user" %>
-  <%= f.submit "Créer une TodoList", class: 'btn btn-light' %>
-<% end %>
+<div class="container text-center custom-container">
+  <h2>Ajoutez un invité à l'évènement <%= @event.title %></h2>
+  <%= simple_form_for [@event, @participation] do |f| %>
+    <div class="col-6 mb-3n mx-auto">
+      <%= f.association :user, label: false, prompt: "Sélectionne un invité", input_html: { class: 'form-input' } %>
+    </div>
+    <div class="col-6 mb-2 mx-auto">
+      <%= f.submit "Etape suivante", class: 'button-basic' %>
+    </div>
+  <% end %>
+</div>
