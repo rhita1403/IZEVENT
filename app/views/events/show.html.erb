@@ -1,8 +1,14 @@
 <h2><%= @event.title %></h2>
-<%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill %>
+<%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill if @event.photo.attached?%>
 <p><%= @event.location %></p>
+  <div style="width: 30%; height: 300px;"
+    data-controller="map"
+    data-map-markers-value="<%= @marker.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 <p><%= @event.date %></p>
 <p><%= @event.description %></p>
+
 
 <%# Boite 1: Event General Infos %>
 <h2 style = "color: red">Infos generales</h2>
