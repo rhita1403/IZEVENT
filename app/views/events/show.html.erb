@@ -1,95 +1,114 @@
-<h2><%= @event.title %></h2>
-<%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill if @event.photo.attached?%>
-<p><%= @event.location %></p>
-  <div style="width: 30%; height: 300px;"
+<div class="container">
+  <h2>Nom de l'evenement: <%= @event.title %></h2>
+  <%# <%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill %>
+  <div class="bigger_grid">
+    <div class="event_show_grid">
+      <%# Boite 1: Event General Infos %>
+      <div class="section">
+        <div class="section_header">
+          <h2>Infos generales</h2>
+        </div>
+        <%# <h3>Nom de l'evenement: <%= @event.title %></h3> %>
+        <p>Endroit: <%= @event.location %></p>
+        <p>Date: <%= @event.date %></p>
+        <p>Description: <%= @event.description %></p>
+      </div>
+        <%# Boite 2: Task infos %>
+        <div class="section scroll">
+          <div class="section_header">
+            <h2>Infos taches</h2>
+          </div>
+          <p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
+          <div class="task_container">
+            <% @tasks.each do |task| %>
+              <!-- Afficher les détails de chaque tache ici -->
+              <div class="task">
+                <div class="task_info">
+                  <p>Tache: <%= task.description %></p>
+                  <p>Coût: <%= task.cost %></p>
+                </div>
+                <div class="link_box">
+                  <p><%= link_to "Modifier", edit_event_task_path(@event, task) %></p>
+                  <p><%= link_to "Supprimer", destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+                </div>
+              </div>
+                     <% end %>
+          </div>
+       </div>
+       <%# Boite 4: Guest List infos %>
+      <div class="section scroll">
+        <div class="section_header">
+          <h2>Liste des invites</h2>
+        </div>
+        <% @participations.each do |participation| %>
+          <!-- Afficher les détails de chaque tache ici -->
+          <div>
+            <p>Prenom et nom: <%= participation.user.first_name %> <%= participation.user.last_name %> </p>
+            <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+          </div>
+        <% end %>
+        <p><%= link_to "ajouter un invite", new_event_participation_path(@event, @participation) %></p>
+        </div>
+        <%# Boite 3: Infos couts %>
+        <div class="section">
+        <div class="section_header">
+          <h2>Tricount les sous-sous ???</h2>
+        </div>
+      </div>
+    </div>
+      <%# Boite 5:Chatroom %>
+      <div id = "chatroom" class="section">
+        <div class="container chatroom"
+        data-controller="chatroom-subscription"
+        data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
+        >
+        <h1>#<%= @chatroom.name %></h1>
+        <div class="messages" data-chatroom-subscription-target="messages">
+          <% @chatroom.messages.each do |message| %>
+            <div id="message-<%= message.id %>">
+              <small>
+                <strong><%= message.user.first_name %></strong>
+                <i><%= message.created_at.strftime("le %d-%m-%Y à %H:%M:%S") %></i>
+              </small>
+              <p><%= message.content %></p>
+            </div>
+          <% end %>
+        </div>
+        <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
+          <%= f.input :content,
+            label: false,
+            placeholder: "Message ##{@chatroom.name}",
+            wrapper_html: {class: "flex-grow-1"}
+          %>
+          <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+        <% end %>
+          </div>
+        </div>
+
+  </div>
+
+ <div style="width: 30%; height: 300px;"
     data-controller="map"
     data-map-markers-value="<%= @marker.to_json %>"
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-  </div>
-<p><%= @event.date %></p>
-<p><%= @event.description %></p>
-
-
-<%# Boite 1: Event General Infos %>
-<h2 style = "color: red">Infos generales</h2>
-
-<h3>Nom de l'evenement: <%= @event.title %></h3>
-<p>Endroit: <%= @event.location %></p>
-<p>Date: <%= @event.date %></p>
-<p>Description: <%= @event.description %></p>
-
-<%# Boite 2: Task infos %>
-<h2 style = "color: red">Infos taches</h2>
-<% @tasks.each do |task| %>
-  <!-- Afficher les détails de chaque tache ici -->
-  <div>
-    <p>Tache: <%= task.description %></p>
-    <p>Coût: <%= task.cost %></p>
-    <p><%= link_to "Modifier cette tache", edit_event_task_path(@event, task) %></p>
-    <p><%= link_to "Supprimer cette tache", destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
-    <p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
-  </div>
-<% end %>
-
-
-<%# Boite 3: Review infos %>
-<h2 style = "color: red">Infos avis</h2>
-<% @reviews.each do |review| %>
-  <!-- Afficher les détails de chaque critique ici -->
-  <p>note: <%= review.rating %></p>
-  <p>commentaire: <%= review.feedback %></p>
-  <p><%= link_to "Modifier votre avis", edit_event_review_path(@event, review) %></p>
-<% end %>
-
-<div class =  "d-flex mx-5">
-  <p><%= link_to "back to events", events_path %></p>
-  <p><%= link_to "comment this event", new_event_review_path(@event) %></p>
-</div>
-<% if policy(@event).edit? %>
-  <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>|
-<% end %>
-<% if policy(@event).destroy? %>
-<%= link_to "Supprimer", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%>
-<% end %>
-
-<%# Boite 4: Guest List infos %>
-
-<h2 style = "color: red">Liste des invites</h2>
-<% @participations.each do |participation| %>
-  <!-- Afficher les détails de chaque tache ici -->
-  <div>
-    <p>Nom et prenom: <%= participation.user.first_name %> <%= participation.user.last_name %> </p>
-    <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
-  </div>
-<% end %>
-<p><%= link_to "ajouter un invite", new_event_participation_path(@event, @participation) %></p>
+    </div>
 
 
 
-<%# Boite 5:Chatroom %>
-<div class="container chatroom"
-  data-controller="chatroom-subscription"
-  data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
->
-  <h1>#<%= @chatroom.name %></h1>
-
-  <div class="messages" data-chatroom-subscription-target="messages">
-    <% @chatroom.messages.each do |message| %>
-      <div id="message-<%= message.id %>">
-        <small>
-          <strong><%= message.user.first_name %></strong>
-          <i><%= message.created_at.strftime("le %d-%m-%Y à %H:%M:%S") %></i>
-        </small>
-        <p><%= message.content %></p>
-      </div>
-    <% end %>
-  </div>
-  <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
-    <%= f.input :content,
-      label: false,
-      placeholder: "Message ##{@chatroom.name}",
-      wrapper_html: {class: "flex-grow-1"}
-    %>
-    <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-  <% end %>
-</div>
+ <%# <h2>Infos avis</h2> %>
+        <%# <% @reviews.each do |review| %> %>
+          <!-- Afficher les détails de chaque critique ici -->
+          <%# <p>note: <%= review.rating %></p> %>
+          <%# <p>commentaire: <%= review.feedback %></p> %>
+          <%# <p><%= link_to "Modifier votre avis", edit_event_review_path(@event, review) %></p> %>
+        <%# <% end %> %>
+        <%# <div class =  "d-flex mx-5"> %>
+          <%# <p><%= link_to "back to events", events_path %></p> %>
+          <%# <p><%= link_to "comment this event", new_event_review_path(@event) %></p>
+        <%# </div> %> %>
+        <%# <% if policy(@event).edit? %> %>
+          <%# <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>| %>
+        <%# <% end %> %>
+        <%# <% if policy(@event).destroy? %> %>
+        <%# <%= link_to "Supprimer", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%> %>
+        <%# <% end %> %>
