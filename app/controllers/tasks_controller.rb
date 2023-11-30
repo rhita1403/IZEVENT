@@ -31,8 +31,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    skip_authorization
     @task = Task.find(params[:id])
+    authorize @task
     @task.destroy
     redirect_to event_path(@task.event)
   end

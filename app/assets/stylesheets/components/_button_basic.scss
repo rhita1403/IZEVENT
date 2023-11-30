@@ -1,0 +1,18 @@
+.button-basic {
+  background-color: #00AABD;
+  color: white;
+  padding: 14px 24px;
+  border: none;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+  margin: 10px;
+}
+
+.button-basic:hover {
+  background-color: #05b3c6;
+}
