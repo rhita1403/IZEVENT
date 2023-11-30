@@ -17,4 +17,12 @@ class User < ApplicationRecord
   def to_label
     "#{first_name} #{last_name}"
   end
+
+  def initials
+    "#{first_name[0]}#{last_name[0]}".upcase
+  end
+
+  def random_color
+    "#" + SecureRandom.hex(3)
+  end
 end

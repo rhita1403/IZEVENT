@@ -3,7 +3,8 @@
  <%= simple_form_for [@event, @task] do |f| %>
   <%= f.input :description, label: "Description"%>
   <%= f.input :cost, label: "Coût" %>
-  <%= f.association :user, prompt: "Select a user" %>
+  <%= f.association :user, collection: @users, prompt: "Select a user", class: "user-select" %>
+  <div id="user-initials"></div> <!-- Élément pour afficher les initiales -->
   <%= f.submit 'Valider la tâche', class: 'btn btn-light' %>
 <% end %>
 <p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'btn btn-light' %>
