@@ -1,0 +1,6 @@
+<form action="/events/<%=@event.id %>/add_multiple_participations" method="get" >
+<% @users.each do |user| %>
+  <input type="checkbox" name="users[]" value="<%=user.id%>"> <%= user.first_name %> <%= user.last_name %>
+<%end%>
+<%= submit_tag("Ajouter", class:"") %>
+</form>

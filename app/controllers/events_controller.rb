@@ -33,10 +33,45 @@ class EventsController < ApplicationController
     if @event.save
       @participation = Participation.create(user: current_user, event: @event, participating: true)
       @chatroom = Chatroom.create(name: "Welcome to #{@event.title}", event: @event)
-      redirect_to new_event_participation_path(@event)
+      redirect_to add_participation_event_path(@event)
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def add_participation
+    skip_authorization
+    @event = Event.find(params[:id])
+    @users = User.where.not(id: @event.user.id)
+  end
+
+  def add_multiple_participations
+    skip_authorization
+    @event = Event.find(params[:id])
+    @users = params[:users]
+
+    @users.each do |user|
+      Participation.create(user_id: user.to_i, event_id: @event.id)
+    end
+    redirect_to add_task_event_path(@event)
+  end
+
+  def add_task
+    skip_authorization
+    @event = Event.find(params[:id])
+  end
+
+  def add_multiple_tasks
+    skip_authorization
+    @event = Event.find(params[:id])
+
+    @descriptions = params[:descriptions]
+    costs = params[:costs]
+
+    @descriptions.each_with_index do |desc, index|
+      Task.create(description: desc, cost: costs[index], event_id: @event.id)
+    end
+    redirect_to event_path(@event)
   end
 
   def edit

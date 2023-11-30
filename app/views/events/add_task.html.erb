@@ -1,0 +1,7 @@
+<h2>Ajouter une tache</h2>
+
+ <form action="/events/<%=@event.id %>/add_multiple_tasks" method="get" >
+  <input type="text" name="descriptions[]" label="Description">
+  <input type="text" name="costs[]" label="Cost">
+<%= submit_tag("Ajouter", class:"") %>
+</form>
