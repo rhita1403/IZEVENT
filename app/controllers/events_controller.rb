@@ -12,6 +12,12 @@ class EventsController < ApplicationController
     authorize @event
     @tasks = @event.tasks
     @participations = @event.participations
+    if @event.geocode
+      @marker = [
+      lat: @event.geocode[0],
+      lng: @event.geocode[1],
+      ]
+    end
   end
 
   def new
