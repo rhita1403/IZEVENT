@@ -49,3 +49,8 @@
   </div>
 <br>
 <%= link_to "Retour aux events", events_path, class: 'btn btn-light' %>
+
+<%# ---------------- Participant connecté ----------- %>
+<div class="user-initials" style="background-color: <%= current_user.random_color %>;">
+  <%= current_user.initials %>
+</div>

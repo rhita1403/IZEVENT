@@ -4,7 +4,9 @@
       <%= simple_form_for [@event], html: { multipart: true } do |f| %>
           <%= f.input :title, as: :string %>
           <%= f.input :location, as: :string %>
-          <%= f.input :date, as: :date %>
+          <%= f.input :date,
+            as: :string,
+            input_html: { data: { controller: "datepicker", datepicker_target: "input" } }, label: "Date de l'évenement" %>
           <%= f.input :description, as: :text %>
           <%= f.submit 'Mettre à jour' %>
       <% end %>

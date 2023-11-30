@@ -1,3 +1,4 @@
+
 <div class="container text-center custom-container">
   <h2>Ajoutez une tâche à l'évènement <%= @event.title %></h2>
   <%= simple_form_for [@event, @task], html: { class: 'row' } do |f| %>
@@ -8,7 +9,8 @@
       <%= f.input :cost, label: false, placeholder: 'Coût', input_html: { class: 'form-input' }  %>
     </div>
     <div class="col-4 mb-3">
-      <%= f.association :user, label: false, prompt: "Sélectionne un responsable", input_html: { class: 'form-input' }  %>
+      <%= f.association :user, collection:@users, label: false, prompt: "Sélectionne un responsable", input_html: { class: 'form-input user-select' }  %>
+       <div id="user-initials"></div> <!-- Élément pour afficher les initiales -->
     </div>
     <div class="col-6 mb-2 mx-auto">
       <%= f.submit 'Ajoutez une autre tâche', class: 'button-basic' %>
