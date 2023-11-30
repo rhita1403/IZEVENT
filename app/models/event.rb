@@ -5,9 +5,8 @@ class Event < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :tasks,dependent: :destroy
   has_many :users, through: :participations
+  has_one_attached :photo
 
   validates :title, presence: true, uniqueness: true
   validates :date, presence: true
-
-  has_one_attached :photo
 end
