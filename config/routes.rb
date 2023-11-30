@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'tasks/new'
-  get 'tasks/create'
-  get 'tasks/edit'
-  get 'tasks/update'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -27,10 +23,13 @@ Rails.application.routes.draw do
       patch :decline
     end
   end
-  # Defines the root path route ("/")
-  # root "posts#index"
-end
+  resources :events, only: [] do
+    member do
+     get :add_task
+     get :add_multiple_tasks
+     get :add_participation
+     get :add_multiple_participations
+    end
+  end
 
-# scope 'tasks' do
-#   resources :photos, as: 'admin_photos'
-# end
+end
