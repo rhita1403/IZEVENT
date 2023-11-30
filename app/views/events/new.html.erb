@@ -1,15 +1,31 @@
-<%= simple_form_for @event do |f| %>
-  <%= f.input :title %>
-  <%= f.input :location %>
-  <%= f.input :date %>
-  <%= f.input :description %>
-  <%= f.input :photo, as: :file %>
-    <% if @event.photo.attached? %>
-    <%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill %>
+<div class="container text-center custom-container">
+  <h2>Créez votre évènement</h2>
+  <%= simple_form_for @event do |f| %>
+  <div class="row">
+    <div class="col-4 mb-3">
+      <%= f.input :title, label: false, placeholder: "Nom de l'évènement",  input_html: { class: 'form-input' } %>
+    </div>
+    <div class="col-4 mb-3">
+      <%= f.input :location, label: false, placeholder: "Adresse de l'évènement", input_html: { class: 'form-input' }%>
+    </div>
+    <div class="col-4 mb-3">
+      <%= f.input :description, label: false, placeholder: "Description de l'évènement",  input_html: { class: 'form-input' } %>
+    </div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-6 mb-3">
+      <%= f.input :date, label: false, input_html: { class: 'form-input' }%>
+    </div>
+    <div class="col-6 mb-3">
+      <%= f.input :photo, as: :file, label: false,  input_html: { class: 'form-input' } %>
+      <% if @event.photo.attached? %>
+        <%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill %>
+      <% end %>
+    </div>
+  </div>
+    <div class="col-6 mb-2 mx-auto">
+      <%= f.submit "Etape suivante", class: 'button-basic' %>
+    </div>
   <% end %>
-  <%= f.submit "Créer une liste d'invités", class: 'btn btn-light' %>
-
-<% end %>
-
-<p><%= link_to "back to events", events_path %></p>
-
+</div>
+<%# <%= link_to "back to events", events_path %>
