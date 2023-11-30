@@ -1,0 +1,64 @@
+.event_show_grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr 1fr;
+}
+
+.event_show_grid, .bigger_grid {
+  gap: 5px 5px;
+}
+.container.chatroom {
+  color: rgb(75, 75, 75);
+}
+
+
+
+// .event_show_grid .section:not(#chatroom):not(.scroll) {
+//   padding-left: 10px;
+// }
+
+.event_show_grid .section:not(#chatroom):hover {
+  cursor: pointer;
+}
+
+.bigger_grid {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  overflow-x: hidden;
+  border-radius: 10px;
+}
+
+// section>h2 {
+//   margin-left: 5px;
+// }
+
+.scroll {
+  overflow-y: hidden;
+}
+
+.section_header {
+  border: 2px solid rgb(0, 0, 0);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  text-align: center;
+}
+
+// Tasks box
+.task_container .task:nth-child(2n) {
+  backdrop-filter: brightness(60%);
+}
+
+.task {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin: auto 0px;
+}
+
+.task_info .p {
+  margin-bottom: 0px ;
+}
+
+.link_box {
+  display: flex;
+}

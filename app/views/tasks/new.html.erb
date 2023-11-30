@@ -1,9 +1,18 @@
-<h2>Creez une tache</h2>
-
- <%= simple_form_for [@event, @task] do |f| %>
-  <%= f.input :description, label: "Description"%>
-  <%= f.input :cost, label: "Coût" %>
-  <%= f.association :user, prompt: "Select a user" %>
-  <%= f.submit 'Valider la tâche', class: 'btn btn-light' %>
-<% end %>
-<p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'btn btn-light' %>
+<div class="container text-center custom-container">
+  <h2>Ajoutez une tâche à l'évènement <%= @event.title %></h2>
+  <%= simple_form_for [@event, @task], html: { class: 'row' } do |f| %>
+    <div class="col-4 mb-3">
+      <%= f.input :description, label: false, placeholder: 'Description',  input_html: { class: 'form-input' } %>
+    </div>
+    <div class="col-4 mb-3">
+      <%= f.input :cost, label: false, placeholder: 'Coût', input_html: { class: 'form-input' }  %>
+    </div>
+    <div class="col-4 mb-3">
+      <%= f.association :user, label: false, prompt: "Sélectionne un responsable", input_html: { class: 'form-input' }  %>
+    </div>
+    <div class="col-6 mb-2 mx-auto">
+      <%= f.submit 'Ajoutez une autre tâche', class: 'button-basic' %>
+      <%= link_to "Etape suivante", event_path(@event), class: 'button-basic' %>
+    </div>
+  <% end %>
+</div>

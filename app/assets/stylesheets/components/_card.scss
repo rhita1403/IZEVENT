@@ -1,0 +1,30 @@
+.section {
+  background-color: #00799D;
+}
+
+.dashboard_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr ;
+  gap: 10px;
+  height: 50%;
+}
+
+.created_event_card {
+  background-color: #2599bd ;
+  margin: 2rem 0px;
+  height: clamp(310px, 350px, 400px);
+
+}
+.img_container, .created_event_card {
+  border-radius: 5px 5px 0px 0px;
+}
+
+.img_container {
+  background-color: black;
+  height: 140px;
+}
+
+.button_box {
+  display: flex;
+}
+

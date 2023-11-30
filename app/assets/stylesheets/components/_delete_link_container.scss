@@ -1,0 +1,16 @@
+.delete-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.fa-trash {
+  color: #fff;
+  padding: 10px;
+  font-size: 22px;
+}
+
+.fa-trash:hover {
+  color: #9d9b9b;
+  transform: translate(-5%, 0%);
+}
