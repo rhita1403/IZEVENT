@@ -1,7 +1,9 @@
 <%= simple_form_for @event do |f| %>
   <%= f.input :title %>
   <%= f.input :location %>
-  <%= f.input :date %>
+  <%= f.input :date,
+            as: :string,
+            input_html: { data: { controller: "datepicker", datepicker_target: "input" } }, label: "Date de l'évenement" %>
   <%= f.input :description %>
   <%= f.input :photo, as: :file %>
     <% if @event.photo.attached? %>
@@ -12,4 +14,3 @@
 <% end %>
 
 <p><%= link_to "back to events", events_path %></p>
-
