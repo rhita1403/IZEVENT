@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 1fr 1fr;
+  color: #001A33;
 }
 
 .event_show_grid, .bigger_grid {
@@ -21,12 +22,21 @@
   cursor: pointer;
 }
 
+
+
 .bigger_grid {
   display: grid;
   grid-template-columns: 70% 30%;
   overflow-x: hidden;
-  border-radius: 10px;
+  gap: 10px;
+  margin-top: 1rem;
 }
+
+.bigger_grid .section {
+  border-radius: 5px;
+  overflow-x: none;
+}
+
 
 // section>h2 {
 //   margin-left: 5px;
@@ -42,11 +52,20 @@
   border-left: 0px;
   border-right: 0px;
   text-align: center;
+  color: white;
+  background-color: #00799D;
 }
+
+.event_show_grid .section {
+  background-color: white;
+}
+
+
 
 // Tasks box
 .task_container .task:nth-child(2n) {
   backdrop-filter: brightness(60%);
+  color: white;
 }
 
 .task {
