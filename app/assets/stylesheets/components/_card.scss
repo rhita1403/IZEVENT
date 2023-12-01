@@ -1,21 +1,28 @@
-.section {
-  background-color: #00799D;
-}
-
 .dashboard_grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr ;
   gap: 10px;
   height: 50%;
+  text-decoration: none;
 }
 
-.created_event_card {
+.created_event_card_basic {
   background-color: #2599bd ;
   margin: 2rem 0px;
   height: clamp(310px, 350px, 400px);
-
 }
-.img_container, .created_event_card {
+
+.created_event_card_pending {
+  background-color: #2599bd ;
+  margin: 2rem 0px;
+  height: clamp(310px, 350px, 400px);
+}
+
+.img_container, .created_event_card_basic {
+  border-radius: 5px 5px 0px 0px;
+}
+
+.img_container, .created_event_card_pending {
   border-radius: 5px 5px 0px 0px;
 }
 
@@ -28,3 +35,8 @@
   display: flex;
 }
 
+
+.created_event_card_basic, .p-card {
+  color : white;
+  text-decoration: none;
+}
