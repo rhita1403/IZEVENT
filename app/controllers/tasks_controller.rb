@@ -4,7 +4,6 @@ class TasksController < ApplicationController
     authorize @task
     @event = Event.find(params[:event_id])
     @users = User.all.map { |u| ["#{u.first_name} #{u.last_name}", u.id, data: { initials: u.initials }] }
-
   end
 
   def create
