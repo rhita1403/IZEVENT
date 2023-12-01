@@ -57,7 +57,7 @@
         <% @participations.each do |participation| %>
           <!-- Afficher les détails de chaque tache ici -->
           <div>
-            <p>Prenom et nom: <%= participation.user.first_name %> <%= participation.user.last_name %> </p>
+            <p><%= participation.user.first_name %> <%= participation.user.last_name %> </p>
             <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
           </div>
         <% end %>
@@ -106,26 +106,3 @@
           </div>
         </div>
   </div>
-
-
-
-
-
-
- <%# <h2>Infos avis</h2> %>
-        <%# <% @reviews.each do |review| %> %>
-          <!-- Afficher les détails de chaque critique ici -->
-          <%# <p>note: <%= review.rating %></p> %>
-          <%# <p>commentaire: <%= review.feedback %></p> %>
-          <%# <p><%= link_to "Modifier votre avis", edit_event_review_path(@event, review) %></p> %>
-        <%# <% end %> %>
-        <%# <div class =  "d-flex mx-5"> %>
-          <%# <p><%= link_to "back to events", events_path %></p> %>
-          <%# <p><%= link_to "comment this event", new_event_review_path(@event) %></p>
-        <%# </div> %> %>
-        <%# <% if policy(@event).edit? %> %>
-          <%# <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>| %>
-        <%# <% end %> %>
-        <%# <% if policy(@event).destroy? %> %>
-        <%# <%= link_to "Supprimer", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%> %>
-        <%# <% end %> %>
