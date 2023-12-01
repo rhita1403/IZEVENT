@@ -5,12 +5,12 @@
 
 
 .fa-pencil {
-  color: #fff;
+  color: rgb(174, 171, 21);
   padding: 10px;
   font-size: 22px;
+  transition: 0.15s;
 }
 
 .fa-pencil:hover {
-  color: #9d9b9b;
-  transform: translate(-5%, 0%);
+  color: rgb(228, 225, 13);
 }
