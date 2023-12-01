@@ -19,10 +19,14 @@ class User < ApplicationRecord
   end
 
   def initials
-    "#{first_name[0]}#{last_name[0]}".upcase
+    "#{first_name[0]}.#{last_name[0]}.".upcase
   end
 
   def random_color
     "#" + SecureRandom.hex(3)
+  end
+
+  def fixed_color
+    "#00FAFF"
   end
 end

@@ -9,8 +9,8 @@
       <%= f.input :cost, label: false, placeholder: 'Coût', input_html: { class: 'form-input' }  %>
     </div>
     <div class="col-4 mb-3">
-      <%= f.association :user, collection:@users, label: false, prompt: "Sélectionne un responsable", input_html: { class: 'form-input user-select' }  %>
-       <div id="user-initials"></div> <!-- Élément pour afficher les initiales -->
+      <%= f.association :user, collection:@users, label: false, prompt: "Sélectionne un responsable", input_html: { class: 'form-input user-select' },  data: { controller: 'controller-initials'}  %>
+       <div data-controller="controller-initials" data-action="change->controller-initials#handleChange" data-controller-initials-target="output"></div> <!-- Élément pour afficher les initiales -->
     </div>
     <div class="col-6 mb-2 mx-auto">
       <%= f.submit 'Ajoutez une autre tâche', class: 'button-basic' %>

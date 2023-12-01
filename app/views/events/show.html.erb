@@ -8,7 +8,7 @@
         <div class="section_header">
           <h2>Infos generales</h2>
         </div>
-        <%# <h3>Nom de l'evenement: <%= @event.title %></h3> %>
+        <%# <h3>Nom de l'evenement: <%= @event.title</h3> %>
         <p>Endroit: <%= @event.location %></p>
         <p>Date: <%= @event.date %></p>
         <p>Description: <%= @event.description %></p>
@@ -31,6 +31,14 @@
                 <div class="task_info">
                   <p>Tache: <%= task.description %></p>
                   <p>Coût: <%= task.cost %></p>
+
+                  <% if task.user.present? %>
+                    <p>Assignée à : <%= task.user.initials %></p>
+                  <% else %>
+                    <p>Responsable: Non défini</p>
+                  <% end %>
+                </div>
+
                 </div>
                 <div class="link_box">
                   <p><%= link_to "Modifier", edit_event_task_path(@event, task) %></p>
