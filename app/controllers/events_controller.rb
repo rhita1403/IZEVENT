@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     if @event.geocode
       @marker = [
       lat: @event.geocode[0],
-      lng: @event.geocode[1],
+      lng: @event.geocode[1]
       ]
     end
   end
