@@ -14,7 +14,7 @@
   </div>
   <div class="row mx-auto">
     <div class="col-6 mb-3">
-      <%= f.input :date,as: :string, input_html: { class: 'form-input', data: { controller: "datepicker", datepicker_target: "input" } }, label: "Date de l'évenement"%>
+      <%= f.input :date,as: :string, label: false, placeholder:"Date de l'évenement", input_html: { class: 'form-input', data: { controller: "datepicker", datepicker_target: "input" } }%>
     </div>
     <div class="col-6 mb-3">
       <%= f.input :photo, as: :file, label: false,  input_html: { class: 'form-input' } %>

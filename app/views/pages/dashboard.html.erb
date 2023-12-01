@@ -2,7 +2,7 @@
   <div class="container">
     <div class="dashboard_grid">
       <div class="section">
-        <p> Les events que j'ai créé :</p>
+        <h3> Les évènements que j'ai créé </h3>
             <% @my_events.each do |event| %>
           <div class="created_event_card">
               <div class="img_container"></div>
@@ -13,26 +13,9 @@
           </div>
             <% end %>
       </div>
+              <%# ---------------- Participant section ----------- %>
       <div class="section">
-        <%# ---------------- Participant section ----------- %>
-        <p> Les events auxquels je suis invité :</p>
-        <% @participations.each do |participation|%>
-              <% if participation.participating == nil %>
-            <div class="created_event_card">
-            <div class="img_container"></div>
-               <p><%=participation.event.title %></p>
-               <p><%=participation.event.location %></p>
-               <p><%=participation.event.date %></p>
-                <div class="button_box">
-                  <%= button_to 'Accepter invitation', confirm_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
-                  <%= button_to 'Refuser invitation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
-                </div>
-            </div>
-          <%end %>
-        <%end %>
-      </div>
-      <div class="section">
-        <p> Les events auxquels je participe :</p>
+        <h3> Les évènements auxquels je participe :</h3>
         <% @participations.each do |participation|%>
           <% if participation.participating == true %>
             <div class="created_event_card">
@@ -45,8 +28,24 @@
             <%end %>
         <% end %>
       </div>
+      <div class="section">
+  <h3> Les évènements auxquels je suis invité :</h3>
+  <% @participations.each do |participation|%>
+        <% if participation.participating == nil %>
+      <div class="created_event_card">
+      <div class="img_container"></div>
+          <p><%=participation.event.title %></p>
+          <p><%=participation.event.location %></p>
+          <p><%=participation.event.date %></p>
+          <div class="button_box">
+            <%= button_to 'Accepter invitation', confirm_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+            <%= button_to 'Refuser invitation', decline_participation_path(participation), method: :patch, class: 'btn btn-primary' %>
+          </div>
+      </div>
+    <%end %>
+  <%end %>
+  </div>
     </div>
   </div>
 <br>
 <%= link_to "Retour aux events", events_path, class: 'btn btn-light' %>
-
