@@ -1,13 +1,15 @@
-<div class="container text-center custom-container">
+<div class="container custom-container d-flex flex-column align-items-center">
   <h2>Ajouter les invités à l'évènement</h2>
   <form action="/events/<%=@event.id %>/add_multiple_participations" method="get" >
-  <% @users.each do |user| %>
-  <div class="col-6 mb-3n mx-auto">
-    <input type="checkbox" name="users[]" value="<%=user.id%>"> <%= user.first_name %> <%= user.last_name %>
-  <%end%>
-  </div>
-  <div class="col-6 mb-2 mx-auto">
-    <%= submit_tag("Ajouter les participants", class:"button-basic") %>
-  </div>
+
+    <% @users.each do |user| %>
+      <div class="col mb-3 mx-auto">
+        <input type="checkbox" name="users[]" value="<%=user.id%>"> <%= user.first_name %> <%= user.last_name %>
+      </div>
+    <% end %>
+
+    <div class="col mb-2 mx-auto">
+      <%= submit_tag("Ajouter les participants", class: "button-basic") %>
+    </div>
   </form>
 </div>
