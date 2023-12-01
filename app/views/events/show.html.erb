@@ -6,7 +6,6 @@
         <div class="section_header">
           <h2>Infos generales</h2>
         </div>
-
         <h3>Nom de l'evenement: <%= @event.title %></h3>
         <p>Endroit: <%= @event.location %></p>
         <p>Date: <%= @event.date %></p>
@@ -28,17 +27,13 @@
               <!-- Afficher les détails de chaque tache ici -->
               <div class="task">
                 <div class="task_info">
-                  <p><%= task.user.first_name %></p>
                   <p>Tache: <%= task.description %></p>
                   <p>Coût: <%= task.cost %></p>
-
-                  <% if task.user.present? %>
+                    <% if task.user.present? %>
                     <p>Assignée à : <%= task.user.initials %></p>
                   <% else %>
-                    <p>Responsable: Non défini</p>
+                    <p>Assignée à : Non défini</p>
                   <% end %>
-                </div>
-
                 </div>
                 <div class="link_box">
                   <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
@@ -71,7 +66,7 @@
         <%# Boite 3: Infos couts %>
         <div class="section">
         <div class="section_header">
-          <h2>Tricount les sous-sous ???</h2>
+          <h2>Tricount</h2>
         </div>
         <% @event.users.each do |user| %>
  <div>
@@ -112,3 +107,25 @@
         </div>
   </div>
 
+
+
+
+
+
+ <%# <h2>Infos avis</h2> %>
+        <%# <% @reviews.each do |review| %> %>
+          <!-- Afficher les détails de chaque critique ici -->
+          <%# <p>note: <%= review.rating %></p> %>
+          <%# <p>commentaire: <%= review.feedback %></p> %>
+          <%# <p><%= link_to "Modifier votre avis", edit_event_review_path(@event, review) %></p> %>
+        <%# <% end %> %>
+        <%# <div class =  "d-flex mx-5"> %>
+          <%# <p><%= link_to "back to events", events_path %></p> %>
+          <%# <p><%= link_to "comment this event", new_event_review_path(@event) %></p>
+        <%# </div> %> %>
+        <%# <% if policy(@event).edit? %> %>
+          <%# <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>| %>
+        <%# <% end %> %>
+        <%# <% if policy(@event).destroy? %> %>
+        <%# <%= link_to "Supprimer", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%> %>
+        <%# <% end %> %>
