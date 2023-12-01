@@ -6,6 +6,7 @@
         <div class="section_header">
           <h2>Infos generales</h2>
         </div>
+
         <h3>Nom de l'evenement: <%= @event.title %></h3>
         <p>Endroit: <%= @event.location %></p>
         <p>Date: <%= @event.date %></p>
@@ -30,6 +31,14 @@
                   <p><%= task.user.first_name %></p>
                   <p>Tache: <%= task.description %></p>
                   <p>Coût: <%= task.cost %></p>
+
+                  <% if task.user.present? %>
+                    <p>Assignée à : <%= task.user.initials %></p>
+                  <% else %>
+                    <p>Responsable: Non défini</p>
+                  <% end %>
+                </div>
+
                 </div>
                 <div class="link_box">
                   <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
