@@ -1,7 +1,14 @@
-<h2>Ajouter une tache</h2>
-
- <form action="/events/<%=@event.id %>/add_multiple_tasks" method="get" >
-  <input type="text" name="descriptions[]" label="Description">
-  <input type="text" name="costs[]" label="Cost">
-<%= submit_tag("Ajouter", class:"") %>
-</form>
+<div class="container text-center custom-container">
+  <h2>Ajouter une tâche</h2>
+  <form action="/events/<%=@event.id %>/add_multiple_tasks" method="get" >
+    <div class="col-6 mb-3n mx-auto">
+      <input type="text" name="descriptions[]" placeholder="Description de la tâche" class='form-input'>
+    </div>
+    <div class="col-6 mb-3n mx-auto">
+      <input type="text" name="costs[]" placeholder="Coût de la tâche" class='form-input'>
+    </div>
+    <div class="col-6 mb-2 mx-auto">
+      <%= submit_tag("Valider", class:"button-basic") %>
+    </div>
+  </form>
+</div>

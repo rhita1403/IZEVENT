@@ -13,8 +13,8 @@
        <div data-controller="controller-initials" data-action="change->controller-initials#handleChange" data-controller-initials-target="output"></div> <!-- Élément pour afficher les initiales -->
     </div>
     <div class="col-6 mb-2 mx-auto">
-      <%= f.submit 'Valider la tâche', class: 'btn btn-light' %>
+      <%= f.submit 'Valider la tâche', class: 'button-basic' %>
     </div>
   <% end %>
-    <p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'btn btn-light' %></p>
+    <p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'button-basic' %></p>
 </div>
