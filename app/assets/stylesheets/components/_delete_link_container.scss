@@ -5,12 +5,13 @@
 
 
 .fa-trash {
-  color: #fff;
+  color: #8d4848;
   padding: 10px;
   font-size: 22px;
+  transition: 0.15s;
 }
 
 .fa-trash:hover {
-  color: #9d9b9b;
-  transform: translate(-5%, 0%);
+  color: #da0303;
+
 }
