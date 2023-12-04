@@ -61,7 +61,7 @@
           <div class="section_header">
             <h2>Infos taches</h2>
           </div>
-          <p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
+          <p><%= link_to "Ajouter une tache", add_task_event_path(@event) %></p>
           <div class="task_container">
             <% @tasks.each do |task| %>
               <!-- Afficher les détails de chaque tache ici -->
@@ -70,7 +70,10 @@
                   <p><%= task.description %></p>
                   <p>Coût: <%= task.cost %>€</p>
                   <% if task.confirmed %>
-                    <p><%= task.user.initials %></p>
+                    <%# <p><%= task.user.initials %>
+                    <div class="user-initials" style="background-color: <%= current_user.fixed_color %>;">
+                      <%= current_user.initials %>
+                    </div>
                   <% else %>
                     <%= link_to 'selectionner la tache', confirm_event_task_path(@event, task), class: 'btn btn-primary' %>
                   <% end %>
