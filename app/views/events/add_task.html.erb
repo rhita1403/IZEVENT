@@ -1,14 +1,17 @@
-<div class="container text-center custom-container">
+<div class="container text-center custom-container" data-controller="displaytask">
   <h2>Ajouter une tâche</h2>
   <form action="/events/<%=@event.id %>/add_multiple_tasks" method="get" >
-    <div class="col-6 mb-3n mx-auto">
-      <input type="text" name="descriptions[]" placeholder="Description de la tâche" class='form-input'>
-    </div>
-    <div class="col-6 mb-3n mx-auto">
-      <input type="text" name="costs[]" placeholder="Coût de la tâche" class='form-input'>
+    <div data-displaytask-target="togglableElement">
+      <div class="col-6 mb-3n mx-auto">
+        <input type="text" name="descriptions[]" placeholder="Description de la tâche" class='form-input'>
+      </div>
+      <div class="col-6 mb-3n mx-auto">
+        <input type="text" name="costs[]" placeholder="Coût de la tâche" class='form-input'>
+      </div>
     </div>
     <div class="col-6 mb-2 mx-auto">
       <%= submit_tag("Valider", class:"button-basic") %>
     </div>
   </form>
+    <button data-action="click->displaytask#fire" class="button-basic">Ajouter une nouvelle tache</button>
 </div>

@@ -53,7 +53,7 @@ class EventsController < ApplicationController
     @users.each do |user|
       Participation.create(user_id: user.to_i, event_id: @event.id)
     end
-    redirect_to new_event_task_path(@event)
+    redirect_to add_task_event_path(@event)
   end
 
   def add_task
