@@ -11,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2023_12_04_152902) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,7 +90,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_152902) do
     t.bigint "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["event_id"], name: "index_reviews_on_event_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -128,6 +131,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_04_152902) do
   add_foreign_key "participations", "events"
   add_foreign_key "participations", "users"
   add_foreign_key "reviews", "events"
+  add_foreign_key "reviews", "users"
   add_foreign_key "tasks", "events"
   add_foreign_key "tasks", "users"
 end

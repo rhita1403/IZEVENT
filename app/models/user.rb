@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :tasks
   has_many :messages
   has_many :participations
+  has_many :reviews
   has_many :events, through: :participations
 
   validates :first_name, presence: true
