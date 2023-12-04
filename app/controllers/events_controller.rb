@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  helper_method :average_rating
   def index
     @events = Event.all
     @events = policy_scope(Event)
@@ -91,6 +92,14 @@ class EventsController < ApplicationController
     authorize @event
     @event.destroy
     redirect_to events_path, status: :see_other
+  end
+
+  def average_rating
+    total_rating = 0
+    @event.reviews.each do |review|
+      total_rating += review.rating
+    end
+    (total_rating / @event.reviews.count).round(0)
   end
 
   private

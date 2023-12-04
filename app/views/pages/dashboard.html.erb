@@ -16,6 +16,13 @@
               <div class="delete-link-container">
                 <a href="#"><i class="fa-solid fa-trash"></i></a>
               </div>
+              <div class="review-link-container">
+              <% if DateTime.now > event.date %>
+                <%=link_to new_event_review_path(event) do %>
+                  <i class="fa-regular fa-pen-to-square"></i>
+                <% end %>
+              <% end %>
+              </div>
           </div>
           <% end %>
       </div>
@@ -30,6 +37,19 @@
             <p><%=participation.event.location %></p>
             <p><%=participation.event.date %></p>
               <%= button_to 'Annuler participation', decline_participation_path(participation), method: :patch, class: 'button-basic' %>
+            <div class="edit-link-container">
+            <a href="#"><i class="fa-solid fa-pencil"></i></a>
+            </div>
+            <div class="delete-link-container">
+              <a href="#"><i class="fa-solid fa-trash"></i></a>
+            </div>
+            <div class="review-link-container">
+            <% if DateTime.now > participation.event.date %>
+              <%=link_to new_event_review_path(participation.event) do %>
+                <i class="fa-regular fa-pen-to-square"></i>
+              <% end %>
+            <% end %>
+            </div>
             </div>
             <%end %>
         <% end %>
