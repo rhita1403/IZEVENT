@@ -11,7 +11,7 @@ class EventsController < ApplicationController
     @message = Message.new
     @reviews = @event.reviews
     authorize @event
-    @tasks = @event.tasks
+    @tasks = @event.tasks.order(created_at: :desc)
     @participations = @event.participations
     if @event.geocode
       @marker = [
