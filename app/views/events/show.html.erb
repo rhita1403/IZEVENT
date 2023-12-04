@@ -96,7 +96,7 @@
             <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
           </div>
         <% end %>
-        <p><%= link_to "ajouter un invite", new_event_participation_path(@event, @participation) %></p>
+        <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
         </div>
         <%# Boite 3: Infos couts %>
         <div class="section">

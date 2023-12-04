@@ -29,6 +29,8 @@ Rails.application.routes.draw do
      get :add_multiple_tasks
      get :add_participation
      get :add_multiple_participations
+     get :add_multiple_new_participations
+     get :add_new_participation
     end
   end
 
