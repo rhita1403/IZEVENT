@@ -24,12 +24,17 @@
               </div>
               <div class="modal-body">
                 <% @event.reviews.each do |review| %>
-                  <p><%= review.feedback %></p>
+                  <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">My name</h5>
+                      <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %></h6>
+                      <p class="card-text"><%= review.feedback %></p>
+                      <% if review.user == current_user%>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <% end %>
+                    </div>
+                  </div>
                 <% end %>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
           </div>
