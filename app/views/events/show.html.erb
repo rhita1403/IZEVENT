@@ -69,24 +69,26 @@
                 <div class="task_info">
                   <p><%= task.description %></p>
                   <p>Coût: <%= task.cost %>€</p>
-                    <% if task.user.present? %>
-                    <p>Assignée à : <%= task.user.initials %></p>
+                  <% if task.confirmed %>
+                    <p><%= task.user.initials %></p>
                   <% else %>
-                    <p>Assignée à : Non défini</p>
+                    <%= link_to 'selectionner la tache', confirm_event_task_path(@event, task), class: 'btn btn-primary' %>
                   <% end %>
                 </div>
                 <div class="link_box">
-                  <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
+                  <p>
+                    <%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
                       <i class="fa-solid fa-trash"></i>
-                      <% end %>
+                    <% end %>
                   </p>
-                  <p><%= link_to edit_event_task_path(@event, task) do %>
-                    <i class="fa-solid fa-pencil"></i>
+                  <p>
+                    <%= link_to edit_event_task_path(@event, task) do %>
+                      <i class="fa-solid fa-pencil"></i>
                     <% end %>
                   </p>
                 </div>
               </div>
-                     <% end %>
+            <% end %>
           </div>
        </div>
        <%# Boite 4: Guest List infos %>
