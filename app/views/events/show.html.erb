@@ -6,6 +6,7 @@
         <div class="section_header">
           <h2>Infos generales</h2>
         </div>
+        <% if @event.reviews.count > 0 %>
         <div data-toggle="modal" data-target="#reviewsModal">
           <% average_rating.times do %>
           <i class="fa-solid fa-star"></i>
@@ -33,6 +34,7 @@
             </div>
           </div>
         </div>
+        <%end%>
         <h3>Nom de l'evenement: <%= @event.title %></h3>
         <p>Endroit: <%= @event.location %></p>
         <p>Date: <%= @event.date %></p>
@@ -42,6 +44,12 @@
           data-map-markers-value="<%= @marker.to_json %>"
           data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
         </div>
+        <% if policy(@event).destroy? %>
+          <%= link_to "Supprimer l'évènement", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%>
+          <% end %>
+          <% if policy(@event).edit? %>
+          <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>
+          <% end %>
       </div>
         <%# Boite 2: Task infos %>
         <div class="section scroll">
@@ -54,8 +62,8 @@
               <!-- Afficher les détails de chaque tache ici -->
               <div class="task">
                 <div class="task_info">
-                  <p>Tache: <%= task.description %></p>
-                  <p>Coût: <%= task.cost %></p>
+                  <p><%= task.description %></p>
+                  <p>Coût: <%= task.cost %>€</p>
                     <% if task.user.present? %>
                     <p>Assignée à : <%= task.user.initials %></p>
                   <% else %>
@@ -100,8 +108,7 @@
 
           <% @event.users.each do |user| %>
             <%= user.first_name %> <%= user.last_name %> :
-            <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%> € | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>
-            €</p>
+            <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%>€ | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>€</p>
             <% end %>
           </div>
         </div>
