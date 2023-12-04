@@ -1,6 +1,14 @@
-<h1> change ton commentaire</h1>
-<%= simple_form_for [@event, @review] do |f| %>
-  <%= f.input :rating %>
-  <%= f.input :feedback %>
-  <%= f.submit "Submit review", class: "btn btn-primary" %>
-<% end %>
+<div class="container text-center custom-container">
+  <h2>Modifiez votre avis sur l'évènement <%= @event.title %></h2>
+  <%= simple_form_for [@event, @review] do |f| %>
+    <div class="col-4 mb-3 mx-auto">
+    <%= f.input :rating, label: false, placeholder: "Donnez une note sur 5 à cet évènement", input_html: { class: 'form-input' } %>
+    </div>
+    <div class="col-4 mb-3 mx-auto">
+      <%= f.input :feedback, label: false, placeholder: "Qu'avez-vous pensé de cet évènement?", input_html: { class: 'form-input' }  %>
+    </div>
+    <div class="col-6 mb-2 mx-auto">
+      <%= f.submit "Modifiez votre avis", class: 'button-basic' %>
+    </div>
+  <% end %>
+</div>
