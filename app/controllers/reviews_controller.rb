@@ -9,6 +9,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     authorize @review
     @review.event = @event
+    @review.user = current_user
     @review.save
     if @review.save
       redirect_to event_path(@event)
@@ -29,8 +30,6 @@ class ReviewsController < ApplicationController
     @review.update(review_params)
     redirect_to event_path(@review.event)
   end
-
-
 
   private
 
