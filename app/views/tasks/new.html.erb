@@ -1,20 +1,23 @@
 
-<div class="container text-center custom-container">
+<div class="container text-center custom-container" data-controller="displaytask">
   <h2>Ajoutez une tâche à l'évènement <%= @event.title %></h2>
   <%= simple_form_for [@event, @task], html: { class: 'row' } do |f| %>
-    <div class="col-4 mb-3">
-      <%= f.input :description, label: false, placeholder: 'Description',  input_html: { class: 'form-input' } %>
+    <div data-displaytask-target="togglableElement">
+      <div class="col-4 mb-3">
+        <%= f.input :description, label: false, placeholder: 'Description',  input_html: { class: 'form-input' } %>
+      </div>
+      <div class="col-4 mb-3">
+        <%= f.input :cost, label: false, placeholder: 'Coût', input_html: { class: 'form-input' }  %>
+      </div>
     </div>
-    <div class="col-4 mb-3">
-      <%= f.input :cost, label: false, placeholder: 'Coût', input_html: { class: 'form-input' }  %>
-    </div>
-    <div class="col-4 mb-3">
-      <%= f.association :user, collection:@users, label: false, prompt: "Sélectionne un responsable", input_html: { class: 'form-input user-select' },  data: { controller: 'controller-initials'}  %>
-       <div data-controller="controller-initials" data-action="change->controller-initials#handleChange" data-controller-initials-target="output"></div> <!-- Élément pour afficher les initiales -->
-    </div>
-    <div class="col-6 mb-2 mx-auto">
-      <%= f.submit 'Valider la tâche', class: 'button-basic' %>
+    <div class="col-6 mb-2 mx-auto" >
+      <%= f.submit "Valider la tâche", class:"button-basic" %>
     </div>
   <% end %>
-    <p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'button-basic' %></p>
+    <button data-action="click->displaytask#fire" class="button-basic">Ajouter une nouvelle tache</button>
+  <p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'button-basic' %></p>
 </div>
+
+<%# <div data-controller="toggle" class="mt-5">
+  <button class="btn btn-outline-primary">Add a new monument</button>
+  <%= render "form", monument: @monument %>
