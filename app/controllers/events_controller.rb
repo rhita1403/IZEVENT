@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  helper_method :total_cost, :average_cost_per_user, :spend_per_user, :cost
+
   def index
     @events = Event.all
     @events = policy_scope(Event)
@@ -72,6 +74,18 @@ class EventsController < ApplicationController
       Task.create(description: desc, cost: costs[index], event_id: @event.id)
     end
     redirect_to event_path(@event)
+  end
+
+  def total_cost
+    total_cost = 0
+    @event.tasks.each do |task|
+      total_cost += task.cost
+    end
+    total_cost
+  end
+
+  def average_cost_per_user
+    (total_cost / @event.participations.count).round(2)
   end
 
   def edit
