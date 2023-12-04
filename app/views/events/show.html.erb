@@ -101,7 +101,7 @@
             <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
           </div>
         <% end %>
-        <p><%= link_to "ajouter un invite", new_event_participation_path(@event, @participation) %></p>
+        <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
         </div>
         <%# Boite 3: Infos couts %>
         <div class="section">
@@ -124,7 +124,7 @@
         data-controller="chatroom-subscription"
         data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
         >
-        <h1>#<%= @chatroom.name %></h1>
+        <h1>Chatroom</h1>
         <div class="messages" data-chatroom-subscription-target="messages">
           <% @chatroom.messages.each do |message| %>
             <div id="message-<%= message.id %>">
@@ -139,7 +139,7 @@
         <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
           <%= f.input :content,
             label: false,
-            placeholder: "Message ##{@chatroom.name}",
+            placeholder: "Message",
             wrapper_html: {class: "flex-grow-1"}
           %>
           <%= f.submit "Send", class: "btn btn-primary mb-3" %>
