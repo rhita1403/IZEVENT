@@ -1,0 +1,16 @@
+.review-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.fa-pen-to-square {
+  color: rgb(111, 111, 231);
+  padding: 10px;
+  font-size: 22px;
+  transition: 0.15s;
+}
+
+.fa-pen-to-square:hover {
+  color: rgb(41, 41, 242);
+}

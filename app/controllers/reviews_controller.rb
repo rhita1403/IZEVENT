@@ -31,6 +31,7 @@ class ReviewsController < ApplicationController
   end
 
 
+
   private
 
   def set_event
