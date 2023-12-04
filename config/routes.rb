@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     end
     resources :participations, only: [:new, :create, :edit, :update]
     resources :reviews, only: [:new, :create, :edit, :update]
-    resources :tasks, only: [:new, :create, :edit, :update]
+    resources :tasks, only: [:new, :create, :edit, :update] do
+      member do
+        get :confirm
+      end
+    end
   end
   resources :tasks, only: :destroy, as: "destroy_task"
   resources :participations, only: :destroy, as: "destroy_participation"

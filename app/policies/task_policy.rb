@@ -31,4 +31,8 @@ class TaskPolicy < ApplicationPolicy
   def destroy?
     true
   end
+
+  def confirm?
+    true
+  end
 end
