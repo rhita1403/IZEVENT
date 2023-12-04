@@ -4,7 +4,7 @@ class TasksController < ApplicationController
     @task = Task.new
     authorize @task
     @event = Event.find(params[:event_id])
-    
+
   end
 
   def create
@@ -36,6 +36,13 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     authorize @task
     @task.destroy
+    redirect_to event_path(@task.event)
+  end
+
+  def confirm
+    @task = Task.find(params[:id])
+    @task.update(confirmed: true, user: current_user)
+    authorize @task
     redirect_to event_path(@task.event)
   end
 

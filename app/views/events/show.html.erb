@@ -1,3 +1,4 @@
+
 <div class="show_container">
   <div class="sidebar">
     <div class="sidebar_section">
@@ -16,5 +17,154 @@
       <div class="show_section"></div>
       <div class="show_section"></div>
     </div>
+
+<div class="container">
+  <div class="bigger_grid">
+    <div class="event_show_grid">
+      <%# Boite 1: Event General Infos %>
+      <div class="section">
+        <div class="section_header">
+          <h2>Infos generales</h2>
+        </div>
+        <% if @event.reviews.count > 0 %>
+        <div data-toggle="modal" data-target="#reviewsModal">
+          <% average_rating.times do %>
+              <i class="fa-solid fa-star"></i>
+          <% end %>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">Toutes les reviews</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <% @event.reviews.each do |review| %>
+                  <div class="card" style="">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=review.user.first_name.titleize%></h5>
+                      <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %>/5</h6>
+                      <p class="card-text"><%= review.feedback%></p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%end%>
+        <h3>Nom de l'evenement: <%= @event.title %></h3>
+        <p>Endroit: <%= @event.location %></p>
+        <p>Date: <%= @event.date %></p>
+        <p>Description: <%= @event.description %></p>
+        <div style="width: 100%; height: 150px;"
+          data-controller="map"
+          data-map-markers-value="<%= @marker.to_json %>"
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
+        <% if policy(@event).destroy? %>
+          <%= link_to "Supprimer l'évènement", event_path(@event), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?" }, class:"delete_link"%>
+          <% end %>
+          <% if policy(@event).edit? %>
+          <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>
+          <% end %>
+      </div>
+        <%# Boite 2: Task infos %>
+        <div class="section scroll">
+          <div class="section_header">
+            <h2>Infos taches</h2>
+          </div>
+          <p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
+          <div class="task_container">
+            <% @tasks.each do |task| %>
+              <!-- Afficher les détails de chaque tache ici -->
+              <div class="task">
+                <div class="task_info">
+                  <p><%= task.description %></p>
+                  <p>Coût: <%= task.cost %>€</p>
+                  <% if task.confirmed %>
+                    <p><%= task.user.initials %></p>
+                  <% else %>
+                    <%= link_to 'selectionner la tache', confirm_event_task_path(@event, task), class: 'btn btn-primary' %>
+                  <% end %>
+                </div>
+                <div class="link_box">
+                  <p>
+                    <%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
+                      <i class="fa-solid fa-trash"></i>
+                    <% end %>
+                  </p>
+                  <p>
+                    <%= link_to edit_event_task_path(@event, task) do %>
+                      <i class="fa-solid fa-pencil"></i>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+       </div>
+       <%# Boite 4: Guest List infos %>
+      <div class="section scroll">
+        <div class="section_header">
+          <h2>Liste des invites</h2>
+        </div>
+        <% @participations.each do |participation| %>
+          <!-- Afficher les détails de chaque tache ici -->
+          <div>
+            <p><%= participation.user.first_name %> <%= participation.user.last_name %> </p>
+            <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+          </div>
+        <% end %>
+        <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
+        </div>
+        <%# Boite 3: Infos couts %>
+        <div class="section">
+          <div class="section_header">
+            <h2>La Moula</h2>
+          </div>
+          <div>
+          <p><strong>Coût total : </strong><%= total_cost.round(2) %>€ | <strong>par personne : </strong><%= average_cost_per_user.round(2) %>€  </p>
+
+          <% @event.users.each do |user| %>
+            <%= user.first_name %> <%= user.last_name %> :
+            <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%>€ | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>€</p>
+            <% end %>
+          </div>
+        </div>
+
+      <%# Boite 5:Chatroom %>
+      <div id = "chatroom" class="section">
+        <div class="container chatroom"
+        data-controller="chatroom-subscription"
+        data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
+        >
+        <h1>Chatroom</h1>
+        <div class="messages" data-chatroom-subscription-target="messages">
+          <% @chatroom.messages.each do |message| %>
+            <div id="message-<%= message.id %>">
+              <small>
+                <strong><%= message.user.first_name %></strong>
+                <i><%= message.created_at.strftime("le %d-%m-%Y à %H:%M:%S") %></i>
+              </small>
+              <p><%= message.content %></p>
+            </div>
+          <% end %>
+        </div>
+        <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
+          <%= f.input :content,
+            label: false,
+            placeholder: "Message",
+            wrapper_html: {class: "flex-grow-1"}
+          %>
+          <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+        <% end %>
+          </div>
+        </div>
+
   </div>
 </div>

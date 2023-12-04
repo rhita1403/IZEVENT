@@ -3,6 +3,7 @@ class ParticipationsController < ApplicationController
     @participation = Participation.new
     @event = Event.find(params[:event_id])
     authorize @participation
+    @users = User.joins("LEFT JOIN participations ON participations.user_id = users.id AND participations.event_id = #{@event.id}").where("participations.id IS NULL")
   end
 
   def create
@@ -11,7 +12,7 @@ class ParticipationsController < ApplicationController
     @event = Event.find(params[:event_id])
     @participation.event = @event
     if @participation.save
-      redirect_to new_event_task_path(@event)
+      redirect_to event_path(@event)
     else
       render :new, status: :unprocessable_entity
     end

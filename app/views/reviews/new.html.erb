@@ -2,7 +2,7 @@
   <h2>Partagez votre avis sur l'évènement <%= @event.title %></h2>
   <%= simple_form_for [@event, @review] do |f| %>
     <div class="col-4 mb-3 mx-auto">
-    <%= f.input :rating, label: false, placeholder: "Donnez une note sur 5 à cet évènement", input_html: { class: 'form-input' } %>
+    <%= f.input :rating, label: false, placeholder: "Donnez une note sur 5 à cet évènement", input_html: { class: 'form-input' }, collection: 0..5, include_blank: "Choisissez une note" %>
     </div>
     <div class="col-4 mb-3 mx-auto">
       <%= f.input :feedback, label: false, placeholder: "Qu'avez-vous pensé de cet évènement?", input_html: { class: 'form-input' }  %>
