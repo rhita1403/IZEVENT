@@ -65,18 +65,20 @@
         </div>
         <%# Boite 3: Infos couts %>
         <div class="section">
-        <div class="section_header">
-          <h2>Tricount</h2>
+          <div class="section_header">
+            <h2>La Moula</h2>
+          </div>
+          <div>
+          <p><strong>Coût total : </strong><%= total_cost.round(2) %>€ | <strong>par personne : </strong><%= average_cost_per_user.round(2) %>€  </p>
+
+          <% @event.users.each do |user| %>
+            <%= user.first_name %> <%= user.last_name %> :
+            <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%> € | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>
+            €</p>
+            <% end %>
+          </div>
         </div>
-        <% @event.users.each do |user| %>
- <div>
-  <p>
-   <%= user.first_name %> <%= user.last_name %> : <%= Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum %>
-  </p>
- </div>
-<% end %>
-      </div>
-    </div>
+
       <%# Boite 5:Chatroom %>
       <div id = "chatroom" class="section">
         <div class="container chatroom"
@@ -106,3 +108,4 @@
           </div>
         </div>
   </div>
+</div>
