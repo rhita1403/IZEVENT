@@ -9,18 +9,12 @@
       <%= f.input :location, label: false, placeholder: "Adresse de l'évènement", input_html: { class: 'form-input' }%>
     </div>
     <div class="col-4 mb-3">
-      <%= f.input :description, label: false, placeholder: "Description de l'évènement",  input_html: { class: 'form-input' } %>
-    </div>
-  </div>
-  <div class="row mx-auto">
-    <div class="col-6 mb-3">
       <%= f.input :date,as: :string, label: false, placeholder:"Date de l'évenement", input_html: { class: 'form-input', data: { controller: "datepicker", datepicker_target: "input" } }%>
     </div>
-    <div class="col-6 mb-3">
-      <%= f.input :photo, as: :file, label: false,  input_html: { class: 'form-input' } %>
-      <% if @event.photo.attached? %>
-        <%= cl_image_tag @event.photo.key, height: 300, width: 400, crop: :fill %>
-      <% end %>
+  </div>
+  <div class="row mx-auto m-auto">
+    <div class="container col-6 mb-3">
+    <%= f.input :description, label: false, placeholder: "Description de l'évènement",  input_html: { class: 'form-input' } %>
     </div>
   </div>
     <div class="col-6 mb-2 mx-auto">

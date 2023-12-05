@@ -33,7 +33,7 @@ class EventsController < ApplicationController
     @event.save
     if @event.save
       @participation = Participation.create(user: current_user, event: @event, participating: true)
-      @chatroom = Chatroom.create(name: "Communiquez ici!", event: @event)
+      @chatroom = Chatroom.create(name: "#{@event.title}", event: @event)
       redirect_to add_participation_event_path(@event)
     else
       render :new, status: :unprocessable_entity
