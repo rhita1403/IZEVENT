@@ -1,0 +1,86 @@
+<%# Contenu de la show sans la navbar %>
+  <div class="col-9">
+        <%# Boite 1: Carte avec la carte %>
+        <div class="show_card">
+          <h3><%= @event.title %></h3>
+                    <% if @event.reviews.count > 0 %>
+          <div data-toggle="modal" data-target="#reviewsModal">
+            <% average_rating.times do %>
+                <i class="fa-solid fa-star"></i>
+            <% end %>
+          </div>
+          <div class="show_section map">
+            <div class="section_header">
+            <p> <%= @event.location %></p>
+            <p><%= @event.date %></p>
+            </div>
+            <div style="width: 100%; height: 150px;"
+              data-controller="map"
+              data-map-markers-value="<%= @marker.to_json %>"
+              data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+            </div>
+          </div>
+             <%# Boite 4: Guest List infos %>
+    <div class="section scroll">
+      <div class="section_header">
+        <h3>Liste des invites</h3>
+      </div>
+      <% @participations.each do |participation| %>
+        <!-- Afficher les détails de chaque tache ici -->
+        <div>
+          <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
+            <% if participation.participating == true %>
+            <%# participation.user == @event.user %>
+              <div>
+              <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
+              </div>
+              <% elsif participation.participating == nil %>
+              <div>
+              <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
+              </div>
+              <% else  %>
+              <div>
+                <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
+              </div>
+              <% end %>
+          <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+        </div>
+      <% end %>
+      <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
+        <%end%>
+      </div>
+        </div>
+        <%# Boite 2: Taches %>
+        <div class="show_card">
+          <h3>Liste de taches</h3>
+          <div class="show_section">
+          <p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
+          <div class="task_container">
+            <% @tasks.each do |task| %>
+              <!-- Afficher les détails de chaque tache ici -->
+              <div class="task">
+                <div class="task_info">
+                  <p> <%= task.description %></p>
+                  <p> <%= task.cost %>€</p>
+                    <% if task.user.present? %>
+                    <p> <%= task.user.initials %></p>
+                  <% else %>
+                    <p>Non défini</p>
+                  <% end %>
+                </div>
+                <div class="link_box">
+                  <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
+                      <i class="fa-solid fa-trash"></i>
+                      <% end %>
+                  </p>
+                  <p><%= link_to edit_event_task_path(@event, task) do %>
+                    <i class="fa-solid fa-pencil"></i>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+                     <% end %>
+          </div>
+          </div>
+        </div>
+  </div>

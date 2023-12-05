@@ -1,118 +1,59 @@
 
 <%# Navbar %>
-<div class="wrapper">
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar" style="width: 280px;">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <%# <h1 class="mx-auto big_title">Iz<span class="izivent">ivent</span></h1> %>
-        <%= link_to root_path, class: "nav nav-pills flex-column mb-auto " do %>
-          <%= image_tag "izevent-high-resolution-logo-white-transparent.png", class: "logo" %>
-        <% end %>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-      <div class="mx-auto">
-      <img src="https://github.com/mdo.png" alt="" width="100" height="100" class="rounded-circle me-2 sidebar_img">
-      </div>
-        <li class="nav-item">
-          <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Menu", root_path, class: "nav-link" %>
-        </li>
-      </ul>
-      <hr>
-          <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
-  </div>
-
-
-  <%# Contenu de la show sans la navbar %>
-  <div class="show_container">
-    <div class="show_content">
-        <%# Boite 1: Carte avec la carte %>
-        <div class="show_card">
-          <h3><%= @event.title %></h3>
-          <div class="show_section map">
-            <div class="section_header">
-            <p> <%= @event.location %></p>
-            <p><%= @event.date %></p>
-            </div>
-            <div style="width: 100%; height: 150px;"
-              data-controller="map"
-              data-map-markers-value="<%= @marker.to_json %>"
-              data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-            </div>
-          </div>
-        </div>
-        <%# Boite 2: Taches %>
-        <div class="show_card">
-          <h3>Liste de taches</h3>
-          <div class="show_section">
-            <div class="section_header">
-              <p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
-            </div>
-          <div class="task_container">
-            <% @tasks.each do |task| %>
-              <!-- Afficher les détails de chaque tache ici -->
-              <div class="task">
-                <div class="task_info">
-                  <p><%= task.description %></p>
-                  <p>Coût: <%= task.cost %>€</p>
-                    <% if task.user.present? %>
-                    <p>Assignée à : <%= task.user.initials %></p>
-                  <% else %>
-                    <p>Assignée à : Non défini</p>
-                  <% end %>
-                </div>
-                <div class="link_box">
-                  <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
-                      <i class="fa-solid fa-trash"></i>
-                      <% end %>
-                  </p>
-                  <p><%= link_to edit_event_task_path(@event, task) do %>
-                    <i class="fa-solid fa-pencil"></i>
-                    <% end %>
-                  </p>
-                </div>
-              </div>
-                     <% end %>
-          </div>
-          </div>
-        </div>
-          </div>
-  <div class="container">
-    <div class="bigger_grid">
-      <div class="event_show_grid">
-        <%# Boite 1: Event General Infos %>
-        <div class="section">
-          <div class="section_header">
-            <h2>Infos generales</h2>
-          </div>
-          <% if @event.reviews.count > 0 %>
-          <div data-toggle="modal" data-target="#reviewsModal">
-            <% average_rating.times do %>
-                <i class="fa-solid fa-star"></i>
+<div class="row">
+  <div class="col-3">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar ">
+          <div class="mx-auto">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <%# <h1 class="mx-auto big_title">Iz<span class="izivent">ivent</span></h1> %>
+            <%= link_to root_path, class: "nav nav-pills flex-column mb-auto " do %>
+              <%= image_tag "izevent-high-resolution-logo-white-transparent.png", class: "logo" %>
             <% end %>
           </div>
-          <!-- Modal -->
-          <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="ModalTitle">Toutes les reviews</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <% @event.reviews.each do |review| %>
-                    <div class="card" style="">
-                      <div class="card-body">
-                        <h5 class="card-title"><%=review.user.first_name.titleize%></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %>/5</h6>
-                        <p class="card-text"><%= review.feedback%></p>
-                      </div>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+        <div class="mx-auto">
+        <img src="https://github.com/mdo.png" alt="" width="100" height="100" class="rounded-circle me-2 sidebar_img">
+        </div>
+          <li class="nav-item">
+            <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Menu", root_path, class: "nav-link" %>
+          </li>
+        </ul>
+        <hr>
+            <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
+    </div>
+  </div>
+  <div class="col-9">
+    <h1>Test</h1>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam nostrum harum deserunt tempora iure doloremque maiores. Corrupti dolorum nam id eos. Ipsam reprehenderit suscipit qui tenetur blanditiis nesciunt voluptatum aperiam esse omnis, iure ad itaque dolorum quam dolorem sint magnam consequatur magni minima architecto voluptatibus dignissimos fuga aliquid ducimus exercitationem. Molestiae quas corrupti molestias atque! Totam veritatis magni esse in, aperiam reprehenderit nulla tempore perferendis! Nobis, mollitia assumenda odio, qui quae pariatur a ut placeat, eius voluptatem accusamus? Ab porro, debitis ad optio fuga facilis architecto unde ratione harum non vel totam commodi, dolorum ipsa expedita ex. Atque, enim id! Tempore accusamus unde sed deserunt saepe vitae, harum aspernatur totam culpa sit ratione minima at reiciendis minus facere officia perspiciatis eveniet suscipit enim voluptatum! Ipsa ex quis ipsum sunt, doloremque consequuntur fugit architecto hic magni cumque accusantium odio qui pariatur nam, voluptatem optio? Dolores vitae excepturi, eaque consequuntur qui dicta iusto quasi dolorem ratione. Illum, quidem eum? Consequuntur et soluta officiis itaque, inventore magnam, explicabo facilis sed architecto saepe est tempora minus similique ad laboriosam aut adipisci libero dolorem? Nihil libero earum doloribus ipsum reprehenderit? Esse, doloremque natus. Cum qui repellendus obcaecati neque nisi architecto, suscipit harum, excepturi quisquam quo consectetur nam, quidem beatae? Sit, sed voluptates quasi expedita possimus ex corrupti modi cumque quae fugiat obcaecati hic et est inventore accusamus ullam quibusdam dolores quam architecto tempore atque pariatur. Iste tempora deserunt rem tenetur illum in porro quae nobis cupiditate voluptatum expedita a aliquid esse, qui saepe! Quod, magnam quaerat. Perferendis repellat non expedita nobis, voluptatum possimus. Odit eaque officia explicabo possimus. Neque nobis ea, sed commodi nam debitis inventore nihil dignissimos mollitia deleniti esse ex vel facilis, odio pariatur dolore fuga aliquid voluptatum eveniet sit recusandae eum! Animi, aut fugiat. Ipsa voluptates quae laudantium incidunt nam impedit cumque ex quia. Facilis laudantium autem repudiandae, quod perspiciatis ipsum suscipit labore eaque, aperiam iste enim nam. Magnam aliquid eos aut ut aliquam ratione enim deleniti dignissimos odio dicta magni iure quibusdam dolorem dolore reprehenderit quaerat, amet, placeat ex autem delectus doloremque cumque consequatur perspiciatis? Adipisci labore est vel expedita dicta debitis dignissimos, architecto deserunt vitae aperiam id atque! Fugit consectetur pariatur qui et cum. Eius incidunt nostrum odio quia veritatis necessitatibus error distinctio, impedit maiores fugiat provident soluta nihil tempore nam suscipit placeat omnis expedita ratione excepturi voluptas neque vitae veniam harum dolorem. Provident eos, animi perferendis error quisquam cumque nobis deserunt libero adipisci est accusamus eligendi quam quos non voluptatibus aperiam ut molestias cupiditate officia dicta in. Adipisci maiores quidem provident earum quisquam laudantium magni delectus exercitationem, voluptatum dolor iure voluptas deleniti! Soluta est eos quod nisi, magni sunt facere accusantium? Modi enim officiis fugiat ipsam rerum exercitationem, id aliquam vero consectetur ipsa atque iure. Velit provident natus expedita eveniet ab nulla deserunt dolores aliquid. Officia, harum ad. Consectetur tenetur quisquam omnis libero earum explicabo, quia facere magnam, ipsum, voluptate nobis beatae laudantium illo! Ullam placeat quia sunt adipisci saepe, aut aperiam nulla vitae. Eveniet facere aut ex quos!</p>
+  </div>
+  <%# Boite 1: Event General Infos %>
+</div>
+
+<div class="section">
+        <!-- Modal -->
+        <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle">Toutes les reviews</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <% @event.reviews.each do |review| %>
+                  <div class="card" style="">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=review.user.first_name.titleize%></h5>
+                      <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %>/5</h6>
+                      <p class="card-text"><%= review.feedback%></p>
                     </div>
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>
@@ -203,77 +144,4 @@
               <% end %>
             </div>
         </div>
-        <%# Boite 4: Guest List infos %>
-        <div class="section scroll">
-          <div class="section_header">
-            <h2>Liste des invites</h2>
-          </div>
-          <% @participations.each do |participation| %>
-            <!-- Afficher les détails de chaque tache ici -->
-            <div>
-              <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
-                <% if participation.participating == true %>
-                <%# participation.user == @event.user %>
-                  <div>
-                  <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
-                  </div>
-                  <% elsif participation.participating == nil %>
-                  <div>
-                  <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
-                  </div>
-                  <% else  %>
-                  <div>
-                    <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
-                  </div>
-                  <% end %>
-              <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
-            </div>
-          <% end %>
-          <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
-          </div>
-          <%# Boite 3: Infos couts %>
-          <div class="section">
-            <div class="section_header">
-              <h2>La Moula</h2>
-            </div>
-            <div>
-            <p><strong>Coût total : </strong><%= total_cost.round(2) %>€ | <strong>par personne : </strong><%= average_cost_per_user.round(2) %>€  </p>
-
-            <% @event.users.each do |user| %>
-              <%= user.first_name %> <%= user.last_name %> :
-              <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%>€ | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>€</p>
-              <% end %>
-            </div>
-          </div>
-        <%# Boite 5:Chatroom %>
-         <div id = "chatroom" class="section">
-          <div class="container chatroom"
-            data-controller="chatroom-subscription"
-            data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
-          >
-          <h1>#<%= @chatroom.name %></h1>
-            <div class="messages" data-chatroom-subscription-target="messages">
-              <% @chatroom.messages.each do |message| %>
-                <div id="message-<%= message.id %>">
-                  <small>
-                    <strong><%= message.user.first_name %></strong>
-                    <i><%= message.created_at.strftime("le %d-%m-%Y à %H:%M:%S") %></i>
-                  </small>
-                  <p><%= message.content %></p>
-                </div>
-              <% end %>
-            </div>
-              <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
-                <%= f.input :content,
-                  label: false,
-                  placeholder: "Tapez votre message ici",
-                  wrapper_html: {class: "flex-grow-1"}
-                %>
-                <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-              <% end %>
-            </div>
-          </div>
-      </div>
-    </div>
-  </div>
-</div>
+     </div>

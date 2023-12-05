@@ -1,4 +1,6 @@
-
+body {
+  overflow-x: hidden ;
+}
 
 .show_container {
   display: flex;
@@ -20,13 +22,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
   left: 0;
   bottom: 0;
+  z-index: 9999;
 
   .logo {
     height: 110px;
     width: 166px;
+    margin: auto;
   }
 
   .sidebar_section {
@@ -70,6 +74,7 @@
   display: flex;
   flex-direction: column;
 
+
   h3 {
     font-weight: bold;
   }
@@ -83,16 +88,16 @@
 
   a:hover {
     opacity: 1;
-    background-color: #000000;
+    // background-color: #000000;
   }
 }
 
 .show_section {
   height: fit-content;
   width: 20rem;
-  background-color: #3f495d;
   color: rgb(241, 241, 241);
   border-radius: 15px 15px 0px 0px;
+
 
   .section_header {
     background-color: #4883f9;
@@ -106,23 +111,51 @@
   }
 }
 
-.wrapper {
-display: flex;
-}
+// .wrapper {
+// display: grid;
+// grid-template-columns: 20% 80%;
+// }
 
 .show_content {
-  flex: 1;
-  display: flex;
+  width: 80%;
+  margin-left: 10px;
 }
 
 // Task
+
+.task_container {
+  background: none;
+}
+
 .task {
   // display: flex;
   margin: 5px 0px;
-  border-radius: 20px;
+  border-radius: 15px;
   display: flex;
+  justify-content: space-between;
+  background-color: #3f495d;
+  padding: 5px 5px;
+  transition: 0.15s ease-in-out;
+
+  .task_info {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      margin: 0px 5px;
+      pointer-events: none;
+    }
+  }
 
   .link_box {
     display: flex;
+    background-color: #272f41;
+    border-radius: 0px 15px 15px 0px;
   }
+}
+
+.task:hover {
+  transform: scale(1.1);
+  background-color: white;
+  color: #3f495d;
 }
