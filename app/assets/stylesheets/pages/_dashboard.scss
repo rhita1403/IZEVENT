@@ -1,8 +1,52 @@
 .invitation {
-  background-color: #4783f9;
+  background-color: #3f495e;
   color: white;
   border-radius: 10px;
   text-decoration: none;
+}
+
+.evenement {
+  background-color: #3f495e;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.card-body {
+  position: relative;
+
+  .review-link-container {
+    position: absolute;
+    right:20px;
+    bottom:10px;
+  }
+  .edit-link-container {
+    position: absolute;
+    right:50px;
+    bottom:10px;
+  }
+  .delete-link-container {
+    position: absolute;
+    right:80px;
+    bottom:10px;
+  }
+
+  .card-initials {
+    position: absolute;
+    top: -20px;
+    right:20px;
+
+    .user-initials {
+      width: 54px;
+      height: 54px;
+    }
+  }
+
+  .cancel-link-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+  }
 }
 
 .card-body a {
@@ -12,4 +56,86 @@
 
 .card-body a:hover {
   text-decoration: underline;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
+}
+
+
+.edit-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-pencil {
+  color: white;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.delete-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-trash {
+  color: white;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.review-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-star-half-stroke {
+  color: white;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.cancel-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-ban {
+  color: white;
+  padding: 5px;
+  font-size: 17px;
+}
+
+.confirm-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+
+.fa-circle-check {
+  color: #b2e0ae;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.fa-circle-check:hover {
+  color: rgb(120, 214, 112);
+}
+
+.decline-link-container {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-circle-xmark {
+  color: #ec5c5c;
+  font-size: 20px;
+  padding: 5px;
+}
+
+.fa-circle-xmark:hover {
+  color: #ea4343;
 }
