@@ -1,0 +1,16 @@
+<div class="navbar navbar-izevent">
+  <div class="container-fluid">
+    <% if user_signed_in? %>
+    <div class="user-initials mx-3" style="background-color: <%= current_user.fixed_color %>;">
+            <%= current_user.initials %>
+        </div>
+        <a class="nav-item active">
+          <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "btn-ghost mx-3" %>
+        </a>
+    <% else %>
+        <a class="nav-item">
+          <%= link_to "Login", new_user_session_path, class: "btn-ghost" %>
+        </a>
+    <% end %>
+  </div>
+</div>
