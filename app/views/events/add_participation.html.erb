@@ -3,12 +3,12 @@
   <form action="/events/<%=@event.id %>/add_multiple_participations" method="get" >
 
     <% @users.each do |user| %>
-      <div class="col mb-3 mx-auto">
-        <%= user.first_name %><%= user.last_name %>
+      <div class="col mb-3 mx-5 d-flex align-items-center" style="gap:8px">
         <div data-action='click->checkbox#check' class="user-initials" style="background-color: <%= user.blue_color %>;">
           <%= user.initials %>
           <input type="checkbox" name="users[]" value="<%=user.id%>" class="d-none">
         </div>
+        <%= " " %> <%= user.first_name %> <%= user.last_name %>
       </div>
     <% end %>
 
