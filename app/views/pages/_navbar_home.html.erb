@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <% if user_signed_in? %>
       <%= link_to dashboard_path, style: "text-decoration: none" do %>
-        <div class="user-initials mx-3" style="background-color: <%= current_user.fixed_color %>;">
+        <div class="user-initials mx-3" style="background-color: <%= current_user.blue_color %>;">
           <%= current_user.initials %>
         </div>
       <% end %>
