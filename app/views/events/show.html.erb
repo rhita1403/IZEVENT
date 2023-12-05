@@ -1,22 +1,83 @@
-<div class="show_container">
-  <div class="sidebar">
-    <div class="sidebar_section">
-      <h2>Izivent</h2>
-      <ul>
-        <li>Home</li>
-        <li>Dashboard</li>
-        <li>Events</li>
-      </ul>
-    </div>
-    <div class="sidebar_section"> <a href="#">Deconnexion</a></div>
-  </div>
-    <div class="inner_container">
-      <div class="show_section"></div>
-      <div class="show_section"></div>
-      <div class="show_section"></div>
-      <div class="show_section"></div>
-    </div>
 
+<%# Navbar %>
+<div class="wrapper">
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar" style="width: 280px;">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <%# <h1 class="mx-auto big_title">Iz<span class="izivent">ivent</span></h1> %>
+        <%= link_to root_path, class: "nav nav-pills flex-column mb-auto " do %>
+          <%= image_tag "izevent-high-resolution-logo-white-transparent.png", class: "logo" %>
+        <% end %>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+      <div class="mx-auto">
+      <img src="https://github.com/mdo.png" alt="" width="100" height="100" class="rounded-circle me-2 sidebar_img">
+      </div>
+        <li class="nav-item">
+          <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Menu", root_path, class: "nav-link" %>
+        </li>
+      </ul>
+      <hr>
+          <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
+  </div>
+
+
+  <%# Contenu de la show sans la navbar %>
+  <div class="show_container">
+    <div class="show_content">
+        <%# Boite 1: Carte avec la carte %>
+        <div class="show_card">
+          <h3><%= @event.title %></h3>
+          <div class="show_section map">
+            <div class="section_header">
+            <p> <%= @event.location %></p>
+            <p><%= @event.date %></p>
+            </div>
+            <div style="width: 100%; height: 150px;"
+              data-controller="map"
+              data-map-markers-value="<%= @marker.to_json %>"
+              data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+            </div>
+          </div>
+        </div>
+        <%# Boite 2: Taches %>
+        <div class="show_card">
+          <h3>Liste de taches</h3>
+          <div class="show_section">
+            <div class="section_header">
+              <p><%= link_to "Ajouter une tache", new_event_task_path(@event) %></p>
+            </div>
+          <div class="task_container">
+            <% @tasks.each do |task| %>
+              <!-- Afficher les détails de chaque tache ici -->
+              <div class="task">
+                <div class="task_info">
+                  <p><%= task.description %></p>
+                  <p>Coût: <%= task.cost %>€</p>
+                    <% if task.user.present? %>
+                    <p>Assignée à : <%= task.user.initials %></p>
+                  <% else %>
+                    <p>Assignée à : Non défini</p>
+                  <% end %>
+                </div>
+                <div class="link_box">
+                  <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
+                      <i class="fa-solid fa-trash"></i>
+                      <% end %>
+                  </p>
+                  <p><%= link_to edit_event_task_path(@event, task) do %>
+                    <i class="fa-solid fa-pencil"></i>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+                     <% end %>
+          </div>
+          </div>
+        </div>
+          </div>
   <div class="container">
     <div class="bigger_grid">
       <div class="event_show_grid">
@@ -55,6 +116,39 @@
               </div>
             </div>
           </div>
+
+       </div>
+       <%# Boite 4: Guest List infos %>
+      <div class="section scroll">
+        <div class="section_header">
+          <h2>Liste des invites</h2>
+        </div>
+        <% @participations.each do |participation| %>
+          <!-- Afficher les détails de chaque tache ici -->
+          <div>
+            <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
+              <% if participation.participating == true %>
+              <%# participation.user == @event.user %>
+                <div>
+                <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
+                </div>
+                <% elsif participation.participating == nil %>
+                <div>
+                <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
+                </div>
+                <% else  %>
+                <div>
+                  <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
+                </div>
+                <% end %>
+            <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+          </div>
+        <% end %>
+
+
+
+        <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
+
           <%end%>
           <h3>Nom de l'evenement: <%= @event.title %></h3>
           <p>Endroit: <%= @event.location %></p>
@@ -71,6 +165,7 @@
             <% if policy(@event).edit? %>
             <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>
             <% end %>
+
         </div>
           <%# Boite 2: Task infos %>
           <div class="section scroll">
@@ -118,7 +213,21 @@
           <% @participations.each do |participation| %>
             <!-- Afficher les détails de chaque tache ici -->
             <div>
-              <p><%= participation.user.first_name %> <%= participation.user.last_name %> </p>
+              <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
+                <% if participation.participating == true %>
+                <%# participation.user == @event.user %>
+                  <div>
+                  <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
+                  </div>
+                  <% elsif participation.participating == nil %>
+                  <div>
+                  <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
+                  </div>
+                  <% else  %>
+                  <div>
+                    <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
+                  </div>
+                  <% end %>
               <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
             </div>
           <% end %>
