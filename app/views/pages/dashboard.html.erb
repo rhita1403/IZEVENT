@@ -38,3 +38,30 @@
     <h3>Mes évènements</h3>
   </div>
 </div>
+ <div class="container">
+    <div class="dashboard_grid">
+      <div class="section">
+        <h3> Les events que j'ai créé </h3>
+            <% @my_events.each do |event| %>
+          <div class="created_event_card_basic">
+              <div class="img_container"></div>
+              <p><%=link_to event.title, event_path(event), class: "p-card"%></p>
+              <p><%=event.location %></p>
+              <p><%=event.date %></p>
+              <p><%=event.description %></p>
+              <div class="edit-link-container">
+              <a href="#"><i class="fa-solid fa-pencil"></i></a>
+              </div>
+              <div class="delete-link-container">
+                <a href="#"><i class="fa-solid fa-trash"></i></a>
+              </div>
+              <div class="review-link-container">
+              <% if DateTime.now > event.date %>
+                <%=link_to new_event_review_path(event) do %>
+                  <i class="fa-regular fa-pen-to-square"></i>
+                <% end %>
+              <% end %>
+              </div>
+          </div>
+          <% end %>
+      </div>
