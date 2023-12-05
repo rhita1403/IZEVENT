@@ -55,6 +55,38 @@
               </div>
             </div>
           </div>
+
+       </div>
+       <%# Boite 4: Guest List infos %>
+      <div class="section scroll">
+        <div class="section_header">
+          <h2>Liste des invites</h2>
+        </div>
+        <% @participations.each do |participation| %>
+          <!-- Afficher les détails de chaque tache ici -->
+          <div>
+            <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
+              <% if participation.participating == true %>
+              <%# participation.user == @event.user %>
+                <div>
+                <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
+                </div>
+                <% elsif participation.participating == nil %>
+                <div>
+                <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
+                </div>
+                <% else  %>
+                <div>
+                  <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
+                </div>
+                <% end %>
+            <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+          </div>
+        <% end %>
+
+
+        <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
+
           <%end%>
           <h3>Nom de l'evenement: <%= @event.title %></h3>
           <p>Endroit: <%= @event.location %></p>
@@ -71,6 +103,7 @@
             <% if policy(@event).edit? %>
             <%= link_to "Modifier", edit_event_path(@event), class: 'edit_link' %>
             <% end %>
+        
         </div>
           <%# Boite 2: Task infos %>
           <div class="section scroll">
