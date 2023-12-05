@@ -1,32 +1,39 @@
-<div class="container">
-  <div class="row mt-5">
+<div class="wrapper">
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar" style="width: 280px;">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <%# <h1 class="mx-auto big_title">Iz<span class="izivent">ivent</span></h1> %>
+        <%= link_to root_path, class: "nav nav-pills flex-column mb-auto " do %>
+          <%= image_tag "izevent-high-resolution-logo-white-transparent.png", class: "logo" %>
+        <% end %>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+      <div class="mx-auto">
+      <img src="https://github.com/mdo.png" alt="" width="100" height="100" class="rounded-circle me-2 sidebar_img">
+      </div>
+        <li class="nav-item">
+          <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Menu", root_path, class: "nav-link" %>
+        </li>
+      </ul>
+      <hr>
+          <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
+  </div>
+
+<div class="container mx-5">
+  <div class="row my-5">
     <h2>Mon tableau de bord</h2>
   </div>
   <div class="row mt-5">
     <h3>Mes invitations</h3>
-    <div class="col-3">
+    <div class="col-4">
       <div class="card invitation mt-2">
         <div class="card-body">
           <p class="text-center pb-4" style="font-weight: 550;">Réponses attendues</p>
           <div>
             <% @participations.each do |participation| %>
-              <% if participation.participating == nil %>
-                <div class="row">
-                  <div class="col-8">
-                    <p class="pb-4" style="text-transform: capitalize; font-size: 14px;"><%= link_to participation.event.title, event_path(participation.event) %></p>
-                  </div>
-                  <div class="col-4">
-                    <div class="button_box d-flex justify-content-end">
-                        <%= link_to confirm_participation_path(participation), data: { turbo_method: :patch } do %>
-                          <i class="fa-regular fa-circle-check"></i>
-                        <% end %>
-                        <%= link_to decline_participation_path(participation), data: { turbo_method: :patch } do %>
-                          <i class="fa-regular fa-circle-xmark"></i>
-                        <% end %>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
+              <%= render "shared/invitation", participation: participation%>
             <% end %>
           </div>
         </div>
@@ -34,34 +41,18 @@
     </div>
   </div>
 
-  <div class="row mt-5">
+  <div class="row my-5">
     <h3>Mes évènements</h3>
+    <div class="cards">
+    <% @my_events.each do |event| %>
+      <%= render "shared/event", event: event, participation: nil %>
+    <% end %>
+    <% @participations.each do |participation|%>
+      <% if participation.participating %>
+      <%= render "shared/event", event: participation.event, participation: participation %>
+      <% end %>
+    <% end %>
+    </div>
   </div>
 </div>
- <div class="container">
-    <div class="dashboard_grid">
-      <div class="section">
-        <h3> Les events que j'ai créé </h3>
-            <% @my_events.each do |event| %>
-          <div class="created_event_card_basic">
-              <div class="img_container"></div>
-              <p><%=link_to event.title, event_path(event), class: "p-card"%></p>
-              <p><%=event.location %></p>
-              <p><%=event.date %></p>
-              <p><%=event.description %></p>
-              <div class="edit-link-container">
-              <a href="#"><i class="fa-solid fa-pencil"></i></a>
-              </div>
-              <div class="delete-link-container">
-                <a href="#"><i class="fa-solid fa-trash"></i></a>
-              </div>
-              <div class="review-link-container">
-              <% if DateTime.now > event.date %>
-                <%=link_to new_event_review_path(event) do %>
-                  <i class="fa-regular fa-pen-to-square"></i>
-                <% end %>
-              <% end %>
-              </div>
-          </div>
-          <% end %>
-      </div>
+</div>

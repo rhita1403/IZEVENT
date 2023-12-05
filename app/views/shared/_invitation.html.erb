@@ -1,0 +1,21 @@
+<% if participation.participating == nil %>
+<div class="row">
+  <div class="col-9">
+    <p class="pb-4" style="text-transform: capitalize; font-size: 14px;"><%= link_to participation.event.title, event_path(participation.event) %></p>
+  </div>
+  <div class="col-3">
+    <div class="button_box d-flex justify-content-end">
+        <div class="confirm-link-container">
+          <%= link_to confirm_participation_path(participation), data: { turbo_method: :patch } do %>
+            <i class="fa-regular fa-circle-check"></i>
+          <% end %>
+        </div>
+        <div class="decline-link-container">
+          <%= link_to decline_participation_path(participation), data: { turbo_method: :patch } do %>
+            <i class="fa-regular fa-circle-xmark"></i>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+<% end %>

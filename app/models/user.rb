@@ -30,4 +30,8 @@ class User < ApplicationRecord
   def fixed_color
     "#00FAFF"
   end
+
+  def blue_color
+    "#4783F9"
+  end
 end
