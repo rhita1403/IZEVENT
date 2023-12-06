@@ -103,7 +103,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     authorize @event
     @event.destroy
-    redirect_to events_path, status: :see_other
+    redirect_to dashboard_path, status: :see_other
   end
 
   def average_rating
