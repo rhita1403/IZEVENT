@@ -1,30 +1,32 @@
   <%# Navbar %>
-  <div class="row">
-    <div class="col-3">
+ <div class="row">
+  <div class="col-3" style="width:320px !important;">
       <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar ">
             <div class="mx-auto">
               <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-              <%# <h1 class="mx-auto big_title">Iz<span class="izivent">ivent</span></h1> %>
-              <%= link_to root_path, class: "nav nav-pills flex-column mb-auto " do %>
-                <%= image_tag "izevent-high-resolution-logo-white-transparent.png", class: "logo" %>
+              <%= link_to root_path, class: "nav nav-pills flex-column mb-auto" do %>
+                <%= image_tag "izevent-high-resolution-logo-transparent.png", class: "logo" %>
               <% end %>
             </div>
           <hr>
-          <ul class="nav nav-pills flex-column mb-auto">
-          <div class="mx-auto">
-          <img src="https://github.com/mdo.png" alt="" width="100" height="100" class="rounded-circle me-2 sidebar_img">
+          <div class="container">
+            <div class="row">
+                <h4 style="text-transform: capitalize">Hello <%= current_user.first_name %></h4>
+                <ul class="nav nav-pills flex-column mb-auto">
+                  <li class="nav-item">
+                    <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
+                  </li>
+                  <li class="nav-item">
+                    <%= link_to "Créer un évènement", new_event_path, class: "nav-link" %>
+                  </li>
+                </ul>
+            </div>
           </div>
-            <li class="nav-item">
-              <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Menu", root_path, class: "nav-link" %>
-            </li>
-          </ul>
           <hr>
-              <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
+          <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
       </div>
     </div>
+
     <div class="col-9 show_grid">
       <button class="chat_bubble" data-toggle="modal" data-target="#exampleModal"><i class="fa-regular fa-message"></i></button>
 

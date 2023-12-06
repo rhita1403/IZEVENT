@@ -1,16 +1,5 @@
 <div class="card evenement">
         <div class="card-body">
-          <p style="text-transform: capitalize; font-weight: bolder"><%=link_to event.title, event_path(event)%></p>
-          <p style="font-size: 14px;"><%=event.location %></p>
-          <p style="font-size: 14px;"><%=event.date.strftime("%B, %dth, %Y") %></p>
-          <p style="text-transform: capitalize; font-size: 14px;"><%=event.description %></p>
-          <% if participation %>
-            <div class="cancel-link-container">
-              <%= link_to decline_participation_path(participation), data: { turbo_method: :patch } do %>
-                <i class="fa-solid fa-ban"></i>
-              <% end %>
-            </div>
-          <% end %>
           <% if event.user == current_user %>
             <div class="edit-link-container">
               <%=link_to edit_event_path(event) do %>
@@ -20,6 +9,17 @@
             <div class="delete-link-container">
               <%= link_to destroy_event_path(event), data: {turbo_method: :delete} do %>
                 <i class="fa-solid fa-trash"></i>
+              <% end %>
+            </div>
+          <% end %>
+          <p style="text-transform: capitalize; font-weight: bolder"><%=link_to event.title, event_path(event)%></p>
+          <p style="font-size: 14px;"><%=event.location %></p>
+          <p style="font-size: 14px;"><%=event.date.strftime("%B, %dth, %Y") %></p>
+          <p style="text-transform: capitalize; font-size: 14px; width: 80%"><%=event.description %></p>
+          <% if participation %>
+            <div class="cancel-link-container">
+              <%= link_to decline_participation_path(participation), data: { turbo_method: :patch } do %>
+                <i class="fa-solid fa-ban"></i>
               <% end %>
             </div>
           <% end %>
