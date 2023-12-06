@@ -23,6 +23,10 @@ class User < ApplicationRecord
     "#{first_name[0]}.#{last_name[0]}.".upcase
   end
 
+  def initials_small
+    "#{first_name[0]}.#{last_name[0]}.".downcase
+  end
+
   def random_color
     "#" + SecureRandom.hex(3)
   end
@@ -35,3 +39,4 @@ class User < ApplicationRecord
     "#4783F9"
   end
 end
+

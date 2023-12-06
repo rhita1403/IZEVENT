@@ -1,19 +1,24 @@
-<div class="container custom-container d-flex flex-column align-items-center" data-controller= 'checkbox'>
-  <h2 class="mb-5">Ajouter les invités à l'évènement</h2>
-  <form action="/events/<%=@event.id %>/add_multiple_participations" method="get" >
+<div class="d-flex">
+  <div class="background-b-left">
+    <div class="container custom-container d-flex flex-column align-items-center" data-controller= 'checkbox'>
+      <h2 class="mb-5">Ajouter les invités à l'évènement</h2>
+      <form action="/events/<%=@event.id %>/add_multiple_participations" method="get" >
+        <% @users.each do |user| %>
+          <div class="col mb-3 mx-5 d-flex align-items-center" style="gap:8px">
+            <div data-action='click->checkbox#check' class="user-initials" style="background-color: <%= user.blue_color %>;">
+              <%= user.initials %>
+              <input type="checkbox" name="users[]" value="<%=user.id%>" class="d-none">
+            </div>
+            <%= " " %> <%= user.first_name %> <%= user.last_name %>
+          </div>
+        <% end %>
 
-    <% @users.each do |user| %>
-      <div class="col mb-3 mx-5 d-flex align-items-center" style="gap:8px">
-        <div data-action='click->checkbox#check' class="user-initials" style="background-color: <%= user.blue_color %>;">
-          <%= user.initials %>
-          <input type="checkbox" name="users[]" value="<%=user.id%>" class="d-none">
+        <div class="col mb-2 mx-auto">
+          <%= submit_tag("Ajouter les participants", class: "button-basic") %>
         </div>
-        <%= " " %> <%= user.first_name %> <%= user.last_name %>
-      </div>
-    <% end %>
-
-    <div class="col mb-2 mx-auto">
-      <%= submit_tag("Ajouter les participants", class: "button-basic") %>
+      </form>
     </div>
-  </form>
+  </div>
+  <div class="background-b-right" style='background-image: url(<%= asset_path "back-right.png" %>);'>
+  </div>
 </div>
