@@ -56,15 +56,20 @@ body {
   }
 
 }
-.big_title {
-  font-weight: 800;
-}
 
-.izivent {
-  color: #4883f9 ;
-}
 
 // Show_section
+
+.show_grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  gap: 1rem 1rem;
+}
+
+.section {
+  width: fit-content;
+}
 
 .show_container {
   margin: 1rem;
@@ -130,7 +135,7 @@ body {
 .task {
   // display: flex;
   margin: 5px 0px;
-  border-radius: 15px;
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   background-color: #3f495d;
@@ -150,7 +155,21 @@ body {
   .link_box {
     display: flex;
     background-color: #272f41;
-    border-radius: 0px 15px 15px 0px;
+    border-radius: 5px;
+
+    .fa-trash {
+      color: rgb(180, 37, 37);
+    }
+    .fa-trash:hover {
+      color:rgb(215, 12, 12);
+    }
+
+    .fa-pencil {
+      color: rgb(169, 148, 26);
+    }
+    .fa-pencil:hover {
+      color:rgb(233, 200, 13);
+    }
   }
 }
 
