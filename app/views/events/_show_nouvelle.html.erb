@@ -1,14 +1,15 @@
 <%# Contenu de la show sans la navbar %>
-  <div class="col-9">
+  <div class="col-9 show_grid">
         <%# Boite 1: Carte avec la carte %>
-        <div class="show_card">
+        <div class= "show_card">
           <h3><%= @event.title %></h3>
                     <% if @event.reviews.count > 0 %>
           <div data-toggle="modal" data-target="#reviewsModal">
             <% average_rating.times do %>
                 <i class="fa-solid fa-star"></i>
             <% end %>
-          </div>
+        </div>
+
           <div class="show_section map">
             <div class="section_header">
             <p> <%= @event.location %></p>
