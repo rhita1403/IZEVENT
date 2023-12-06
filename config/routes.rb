@@ -37,5 +37,5 @@ Rails.application.routes.draw do
      get :add_new_participation
     end
   end
-
+  get "/form_task", to: "events#form_task"
 end

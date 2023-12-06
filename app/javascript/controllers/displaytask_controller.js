@@ -6,9 +6,16 @@ export default class extends Controller {
   connect() {
     console.log("hello")
   }
-  fire(){
-    console.log(this.togglableElementTarget.innerHTML)
-    this.togglableElementTarget.insertAdjacentHTML("beforeend", this.togglableElementTarget.innerHTML)
+  async fire(event){
+    event.preventDefault()
+    const response = await fetch("/form_task")
+    console.log(response)
+    const partialHtml = await response.text()
+    console.log(partialHtml)
+    // const html = this.togglableElementTarget.innerHTML
+    // const element = document.createElement("hr")
+    // this.togglableElementTarget.insertAdjacentElement("beforeend", element)
+    this.togglableElementTarget.insertAdjacentHTML("beforeend", partialHtml)
   }
 }
 

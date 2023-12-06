@@ -114,6 +114,11 @@ class EventsController < ApplicationController
     (total_rating / @event.reviews.count).round(0)
   end
 
+  def form_task
+    skip_authorization
+    render partial: "events/form_task"
+  end
+
   private
 
   def event_params
