@@ -13,7 +13,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :phone_number, presence: true, uniqueness: true
 
   def to_label
     "#{first_name} #{last_name}"
@@ -21,6 +20,10 @@ class User < ApplicationRecord
 
   def initials
     "#{first_name[0]}.#{last_name[0]}.".upcase
+  end
+
+  def initials_small
+    "#{first_name[0]}.#{last_name[0]}.".downcase
   end
 
   def random_color
@@ -35,3 +38,4 @@ class User < ApplicationRecord
     "#4783F9"
   end
 end
+

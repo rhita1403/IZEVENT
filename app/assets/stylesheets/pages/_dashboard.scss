@@ -1,5 +1,5 @@
 .invitation {
-  background-color: #3f495e;
+  background-color: #637292;
   color: white;
   border-radius: 10px;
   text-decoration: none;
@@ -22,13 +22,13 @@
   }
   .edit-link-container {
     position: absolute;
-    right:50px;
-    bottom:10px;
+    right:20px;
+    top:10px;
   }
   .delete-link-container {
     position: absolute;
-    right:80px;
-    bottom:10px;
+    right:50px;
+    top:10px;
   }
 
   .card-initials {
@@ -74,6 +74,13 @@
   color: white;
   padding: 5px;
   font-size: 15px;
+  transition: 0.15s;
+}
+
+.fa-pencil:hover {
+  color: rgb(110, 110, 241);
+  padding: 5px;
+  font-size: 15px;
 }
 
 .delete-link-container {
@@ -83,6 +90,13 @@
 
 .fa-trash {
   color: white;
+  padding: 5px;
+  font-size: 15px;
+  transition: 0.15s;
+}
+
+.fa-trash:hover {
+  color: #ec5c5c;
   padding: 5px;
   font-size: 15px;
 }
@@ -96,6 +110,13 @@
   color: white;
   padding: 5px;
   font-size: 15px;
+  transition: 0.15s;
+}
+
+.fa-star-half-stroke:hover {
+  color: rgb(240, 219, 62);
+  padding: 5px;
+  font-size: 15px;
 }
 
 .cancel-link-container {
@@ -105,6 +126,13 @@
 
 .fa-ban {
   color: white;
+  padding: 5px;
+  font-size: 17px;
+  transition: 0.15s;
+}
+
+.fa-ban:hover {
+  color: black;
   padding: 5px;
   font-size: 17px;
 }

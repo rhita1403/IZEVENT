@@ -13,7 +13,7 @@ export default class extends Controller {
     const partialHtml = await response.text()
     console.log(partialHtml)
     // const html = this.togglableElementTarget.innerHTML
-    // const element = document.createElement("hr")
+    // const element = document .createElement("hr")
     // this.togglableElementTarget.insertAdjacentElement("beforeend", element)
     this.togglableElementTarget.insertAdjacentHTML("beforeend", partialHtml)
   }
