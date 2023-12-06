@@ -1,3 +1,4 @@
+
   <%# Navbar %>
  <div class="row">
   <div class="col-3" style="width:320px !important;">
@@ -52,177 +53,197 @@
             data-map-markers-value="<%= @marker.to_json %>"
             data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
           </div>
-        </div>
-      </div>
 
-
-
-
-
-      <%# Quatrieme et derniere carte %>
-      <div class="section tricount">
-          <div class="section_header">
-            <h2>Tricount</h2>
-          </div>
-          <div class="tricount_info">
-            <p><strong>Coût total :</strong></p>
-            <span class="total">
-              <%= total_cost.round(2) %>€
-            </span>
-            <p><strong>par personne : </strong><%= average_cost_per_user.round(2) %>€ </p>
-            <div>
-              <button class="btn btn-light" data-toggle="modal" data-target="#tricountModal">Afficher les details</button>
-            </div>
-          </div>
-      </div>
-
-
-
-
-
-
-        <%# Deuxieme carte %>
-      <div class="section">
-        <h3>Liste de taches</h3>
-        <div class="show_section">
-          <%= link_to new_event_task_path(@event) do%>
-            <i class="fa-regular fa-square-plus fa-lg style="color: #305c7e;"></i>
-          <% end %>
-          <div class="task_container">
-            <% @tasks.each do |task| %>
-                <!-- Afficher les détails de chaque tache ici -->
-              <div class="task">
-              <div class="task_info">
-              <p> <%= task.description %></p>
-              <p> <%= task.cost %>€</p>
-              <% if task.user.present? %>
-              <p> <%= task.user.initials %></p>
-              <% else %>
-              <p>N/A</p>
-            <% end %>
-            </div>
-            <div class="link_box">
-            <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
-            <i class="fa-solid fa-trash"></i>
-            <% end %>
-            </p>
-            <p><%= link_to edit_event_task_path(@event, task) do %>
-            <i class="fa-solid fa-pencil"></i>
-            <% end %>
-            </p>
-            </div>
-            </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-            <%# Derniere carte %>
-      <div class="section">
+      <div class="show_section map">
         <div class="section_header">
-          <h3>Liste des invites</h3>
+          <p> <%= @event.location %></p>
+          <p><%= @event.date %></p>
         </div>
-          <% @participations.each do |participation| %>
-              <!-- Afficher les détails de chaque tache ici -->
-              <div>
-                <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
-                  <% if participation.participating == true %>
-                    <div>
-                    <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
-                    </div>
-                    <% elsif participation.participating == nil %>
-                    <div>
-                    <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
-                    </div>
-                    <% else  %>
-                    <div>
-                      <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
-                    </div>
-                  <% end %>
-                <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
-              </div>
-          <% end %>
-          <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
+        <div style="width: 100%; height: 150px;"
+          data-controller="map"
+          data-map-markers-value="<%= @marker.to_json %>"
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
       </div>
     </div>
 
-  </div>
 
 
-  <!-- Modal review -->
-          <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="ModalTitle">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <% @event.reviews.each do |review| %>
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">My name</h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %></h6>
-                        <p class="card-text"><%= review.feedback %></p>
-                        <% if review.user == current_user%>
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+    <%# Quatrieme et derniere carte %>
+    <div class="section tricount">
+        <div class="section_header">
+          <h2>Tricount</h2>
+        </div>
+        <div class="tricount_info">
+          <p><strong>Coût total :</strong></p>
+          <span class="total">
+            <%= total_cost.round(2) %>€
+          </span>
+          <p><strong>par personne : </strong><%= average_cost_per_user.round(2) %>€ </p>
+          <div>
+            <button class="btn btn-light" data-toggle="modal" data-target="#tricountModal">Afficher les details</button>
+          </div>
+        </div>
+    </div>
+
+
+
+
+
+
+      <%# Deuxieme carte %>
+    <div class="section">
+      <h3>Liste de taches</h3>
+      <div class="show_section">
+        <%= link_to new_event_task_path(@event) do%>
+          <i class="fa-regular fa-square-plus fa-lg" style="color: #305c7e";></i>
+        <% end %>
+        <div class="task_container">
+          <% @tasks.each do |task| %>
+              <!-- Afficher les détails de chaque tache ici -->
+            <div class="task">
+              <div class="task_info">
+                <p> <%= task.description %></p>
+                <p> <%= task.cost %>€</p>
+
+              </div>
+              <div class="link_box">
+                <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
+                <i class="fa-solid fa-trash"></i>
+                <% end %>
+                </p>
+                <p><%= link_to edit_event_task_path(@event, task) do %>
+                <i class="fa-solid fa-pencil"></i>
+                <% end %>
+                </p>
+                <p><% if task.user.present? %>
+                  <p>
+                  <div class="user-initials" style="background-color: <%= current_user.blue_color %>; width: 26px; height: 26px; font-weight: normal;">
+                    <%= current_user.initials_small %>
+                  </div>
+                  </p>
+                  <% else %>
+                  <p><%= link_to assign_task_path(task) do %>
+                    <i class="fa-solid fa-cart-shopping" style="color: #4783F9;"></i>
+                    <% end %>
+                  </p>
+                  <% end %>
+                </p>
+              </div>
+                        </div>
                         <% end %>
                       </div>
                     </div>
-                  <% end %>
+                  </div>
+
+                        <%# Derniere carte %>
+                  <div class="section">
+                    <div class="section_header">
+                      <h3>Liste des invites</h3>
+                    </div>
+                      <% @participations.each do |participation| %>
+                          <!-- Afficher les détails de chaque tache ici -->
+                          <div>
+                            <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
+                              <% if participation.participating == true %>
+                                <div>
+                                <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
+                                </div>
+                                <% elsif participation.participating == nil %>
+                                <div>
+                                <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
+                                </div>
+                                <% else  %>
+                                <div>
+                                  <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
+                                </div>
+                              <% end %>
+                            <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+                          </div>
+                      <% end %>
+                      <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <!-- Modal review -->
+                      <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ModalTitle">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <% @event.reviews.each do |review| %>
+                                <div class="card" style="width: 18rem;">
+                                  <div class="card-body">
+                                    <h5 class="card-title">My name</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><%= review.rating %></h6>
+                                    <p class="card-text"><%= review.feedback %></p>
+                                    <% if review.user == current_user%>
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <% end %>
+                                  </div>
+                                </div>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+
+                      <%# Modal chatroom %>
+                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chatroom</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div id = "chatroom" class="section">
+                    <div class="container chatroom"
+                    data-controller="chatroom-subscription"
+                    data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
+                    >
+                    <h1>#<%= @chatroom.name %></h1>
+                    <div class="messages" data-chatroom-subscription-target="messages">
+                      <% @chatroom.messages.each do |message| %>
+                        <div id="message-<%= message.id %>">
+                          <small>
+                            <strong><%= message.user.first_name %></strong>
+                            <i><%= message.created_at.strftime("le %d-%m-%Y à %H:%M:%S") %></i>
+                          </small>
+                          <p><%= message.content %></p>
+                        </div>
+                      <% end %>
+                    </div>
+                    <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
+                      <%= f.input :content,
+                        label: false,
+                        placeholder: "Message ##{@chatroom.name}",
+                        wrapper_html: {class: "flex-grow-1"}
+                      %>
+                      <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+                    <% end %>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-
-
-
-
-          <%# Modal chatroom %>
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Chatroom</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id = "chatroom" class="section">
-        <div class="container chatroom"
-        data-controller="chatroom-subscription"
-        data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
-        >
-        <h1>#<%= @chatroom.name %></h1>
-        <div class="messages" data-chatroom-subscription-target="messages">
-          <% @chatroom.messages.each do |message| %>
-            <div id="message-<%= message.id %>">
-              <small>
-                <strong><%= message.user.first_name %></strong>
-                <i><%= message.created_at.strftime("le %d-%m-%Y à %H:%M:%S") %></i>
-              </small>
-              <p><%= message.content %></p>
-            </div>
-          <% end %>
-        </div>
-        <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
-          <%= f.input :content,
-            label: false,
-            placeholder: "Message ##{@chatroom.name}",
-            wrapper_html: {class: "flex-grow-1"}
-          %>
-          <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-        <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -230,31 +251,26 @@
 
 
 <%# Modal tricount %>
-          <div class="modal fade" id="tricountModal" tabindex="-1" role="dialog" aria-labelledby="tricountModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="tricountModalLabel">Tricount</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div id = "tricount" class="section">
-          <% @event.users.each do |user| %>
-          <%= user.first_name %> <%= user.last_name %> :
-          <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%>€ | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>€</p>
-          <% end %>
-        </div>
+        <div class="modal fade" id="tricountModal" tabindex="-1" role="dialog" aria-labelledby="tricountModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="tricountModalLabel">Tricount</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id = "tricount" class="section">
+        <% @event.users.each do |user| %>
+        <%= user.first_name %> <%= user.last_name %> :
+        <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%>€ | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>€</p>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
+</div>
 
 
 

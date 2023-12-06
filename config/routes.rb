@@ -39,4 +39,9 @@ Rails.application.routes.draw do
     end
   end
   get "/form_task", to: "events#form_task"
+ resources :tasks, only:[] do
+  member do
+    get :assign
+  end
+ end
 end

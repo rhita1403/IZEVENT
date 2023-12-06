@@ -46,6 +46,14 @@ class TasksController < ApplicationController
     redirect_to event_path(@task.event)
   end
 
+  def assign
+    skip_authorization
+    @task = Task.find(params[:id])
+    @task.user = current_user
+    @task.save
+    redirect_to event_path(@task.event)
+  end
+
   private
 
   def task_params

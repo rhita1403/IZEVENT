@@ -1,0 +1,24 @@
+.background-b-left {
+  top: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #363c4a;
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 50vw;
+}
+
+.background-b-right {
+  top: 0;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 50vw;
+  position: fixed;
+  right: 0;
+}
