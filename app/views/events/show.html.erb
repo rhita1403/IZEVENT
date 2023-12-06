@@ -81,11 +81,13 @@
 
         <%# Deuxieme carte %>
       <div class="section">
-        <h3>Liste de taches</h3>
-        <div class="show_section">
+        <div class="section_header">
+          <h3>Liste de tâches</h3>
           <%= link_to new_event_task_path(@event) do%>
             <i class="fa-regular fa-square-plus fa-lg style="color: #305c7e;"></i>
           <% end %>
+        </div>
+        <div class="show_section">
           <div class="task_container">
             <% @tasks.each do |task| %>
                 <!-- Afficher les détails de chaque tache ici -->
@@ -118,7 +120,7 @@
             <%# Derniere carte %>
       <div class="section">
         <div class="section_header">
-          <h3>Liste des invites</h3>
+          <h3>Liste des invités</h3>
         </div>
           <% @participations.each do |participation| %>
               <!-- Afficher les détails de chaque tache ici -->
