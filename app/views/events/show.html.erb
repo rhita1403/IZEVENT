@@ -93,6 +93,7 @@
 
 
 
+
       <%# Deuxieme carte %>
     <div class="section">
       <h3>Liste de taches</h3>
@@ -129,6 +130,7 @@
                     <i class="fa-solid fa-cart-shopping" style="color: #4783F9;"></i>
                     <% end %>
                   </p>
+
                   <% end %>
                 </p>
               </div>
@@ -137,6 +139,28 @@
                       </div>
                     </div>
                   </div>
+        
+                    <%# Derniere carte %>
+      <div class="section">
+        <div class="section_header">
+          <h3>Liste des invités</h3>
+        </div>
+          <% @participations.each do |participation| %>
+              <!-- Afficher les détails de chaque tache ici -->
+              <div>
+                <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
+                  <% if participation.participating == true %>
+                    <div>
+                    <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
+                    </div>
+                    <% elsif participation.participating == nil %>
+                    <div>
+                    <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
+                    </div>
+                    <% else  %>
+                    <div>
+                      <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
+                    </div>
 
                         <%# Derniere carte %>
                   <div class="section">
