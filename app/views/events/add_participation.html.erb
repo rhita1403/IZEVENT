@@ -1,5 +1,5 @@
 <div class="container custom-container d-flex flex-column align-items-center" data-controller= 'checkbox'>
-  <h2>Ajouter les invités à l'évènement</h2>
+  <h2 class="mb-5">Ajouter les invités à l'évènement</h2>
   <form action="/events/<%=@event.id %>/add_multiple_participations" method="get" >
 
     <% @users.each do |user| %>
