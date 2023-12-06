@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "dashboard", to: "pages#dashboard", as: 'dashboard'
-  resources :events do
+  resources :events, except: :destroy do
     resources :chatrooms, only: [:show] do
       resources :messages, only: [:create]
     end
@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  resources :events, only: :destroy, as: "destroy_event"
   resources :tasks, only: :destroy, as: "destroy_task"
   resources :participations, only: :destroy, as: "destroy_participation"
   resources :participations, only: [] do
