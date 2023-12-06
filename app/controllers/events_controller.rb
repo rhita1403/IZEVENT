@@ -103,7 +103,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     authorize @event
     @event.destroy
-    redirect_to events_path, status: :see_other
+    redirect_to dashboard_path, status: :see_other
   end
 
   def average_rating
@@ -112,6 +112,11 @@ class EventsController < ApplicationController
       total_rating += review.rating
     end
     (total_rating / @event.reviews.count).round(0)
+  end
+
+  def form_task
+    skip_authorization
+    render partial: "events/form_task"
   end
 
   private

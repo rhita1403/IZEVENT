@@ -1,8 +1,14 @@
-<h2>Modifiez une tache</h2>
-
- <%= simple_form_for [@event, @task] do |f| %>
-  <%= f.input :description, label: "Description"%>
-  <%= f.input :cost, label: "Coût" %>
-  <%= f.association :user, prompt: "Select a user" %>
-  <%= f.submit 'Créer', class: 'btn btn-light' %>
-<% end %>
+<div class="container text-center custom-container">
+  <h2>Modifiez une tache</h2>
+  <%= simple_form_for [@event, @task] do |f| %>
+      <div class="col-6 mb-3n mx-auto">
+        <%= f.input :description, label: "Description", class:'form-input'%>
+      </div>
+      <div class="col-6 mb-3n mx-auto">
+        <%= f.input :cost, label: "Coût", class:'form-input'%>
+      </div>
+    <div class="col-6 mb-2 mx-auto">
+      <%= f.submit "Enregistrer ma tâche", class:"button-basic" %>
+    </div>
+  <% end %>
+</div>
