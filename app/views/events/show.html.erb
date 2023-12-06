@@ -1,59 +1,43 @@
-
-  <%# Navbar %>
- <div class="row">
-  <div class="col-3" style="width:320px !important;">
-      <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar ">
-            <div class="mx-auto">
-              <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-              <%= link_to root_path, class: "nav nav-pills flex-column mb-auto" do %>
-                <%= image_tag "izevent-high-resolution-logo-white-transparent.png", class: "logo" %>
-              <% end %>
-            </div>
-          <hr>
-          <div class="container">
-            <div class="row">
-                <h4 style="text-transform: capitalize">Hello <%= current_user.first_name %></h4>
-                <ul class="nav nav-pills flex-column mb-auto">
-                  <li class="nav-item">
-                    <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
-                  </li>
-                  <li class="nav-item">
-                    <%= link_to "Créer un évènement", new_event_path, class: "nav-link" %>
-                  </li>
-                </ul>
-            </div>
+<%# Navbar %>
+<div class="row">
+  <div class="col-3">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar ">
+          <div class="mx-auto">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <%# <h1 class="mx-auto big_title">Iz<span class="izivent">ivent</span></h1> %>
+            <%= link_to root_path, class: "nav nav-pills flex-column mb-auto " do %>
+              <%= image_tag "izevent-high-resolution-logo-white-transparent.png", class: "logo" %>
+            <% end %>
           </div>
-          <hr>
-          <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
-      </div>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+        <div class="mx-auto">
+        <img src="https://github.com/mdo.png" alt="" width="100" height="100" class="rounded-circle me-2 sidebar_img">
+        </div>
+          <li class="nav-item">
+            <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Menu", root_path, class: "nav-link" %>
+          </li>
+        </ul>
+        <hr>
+            <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
     </div>
-
-    <div class="col-9 show_grid">
-      <button class="chat_bubble" data-toggle="modal" data-target="#exampleModal"><i class="fa-regular fa-message"></i></button>
-
-      <%# Troisieme carte %>
-      <div class="section">
-        <h3><%= @event.title %></h3>
-            <div>
-              <% if @event.reviews.count > 0 %>
-                <div data-toggle="modal" data-target="#reviewsModal">
-                  <% average_rating.times do %>
-                      <i class="fa-solid fa-star"></i>
-                  <% end %>
-              <% end %>
-            </div>
-
-        <div class="show_section map">
-          <div class="section_header">
-            <p> <%= @event.location %></p>
-            <p><%= @event.date %></p>
+  </div>
+  <div class="col-9 show_grid">
+    <button class="chat_bubble" data-toggle="modal" data-target="#exampleModal"><i class="fa-regular fa-message"></i></button>
+    <%# Troisieme carte %>
+    <div class="section">
+      <h3><%= @event.title %></h3>
+          <div>
+            <% if @event.reviews.count > 0 %>
+              <div data-toggle="modal" data-target="#reviewsModal">
+                <% average_rating.times do %>
+                    <i class="fa-solid fa-star"></i>
+                <% end %>
+            <% end %>
           </div>
-          <div style="width: 100%; height: 150px;"
-            data-controller="map"
-            data-map-markers-value="<%= @marker.to_json %>"
-            data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-          </div>
-
       <div class="show_section map">
         <div class="section_header">
           <p> <%= @event.location %></p>
@@ -66,11 +50,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
     <%# Quatrieme et derniere carte %>
     <div class="section tricount">
         <div class="section_header">
@@ -87,19 +66,12 @@
           </div>
         </div>
     </div>
-
-
-
-
-
-
-
       <%# Deuxieme carte %>
     <div class="section">
       <h3>Liste de taches</h3>
       <div class="show_section">
         <%= link_to new_event_task_path(@event) do%>
-          <i class="fa-regular fa-square-plus fa-lg" style="color: #305c7e";></i>
+          <i class="fa-regular fa-square-plus fa-lg" style="color: #305C7E";></i>
         <% end %>
         <div class="task_container">
           <% @tasks.each do |task| %>
@@ -108,7 +80,6 @@
               <div class="task_info">
                 <p> <%= task.description %></p>
                 <p> <%= task.cost %>€</p>
-
               </div>
               <div class="link_box">
                 <p><%= link_to destroy_task_path(task), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}  do %>
@@ -130,7 +101,6 @@
                     <i class="fa-solid fa-cart-shopping" style="color: #4783F9;"></i>
                     <% end %>
                   </p>
-
                   <% end %>
                 </p>
               </div>
@@ -139,29 +109,6 @@
                       </div>
                     </div>
                   </div>
-        
-                    <%# Derniere carte %>
-      <div class="section">
-        <div class="section_header">
-          <h3>Liste des invités</h3>
-        </div>
-          <% @participations.each do |participation| %>
-              <!-- Afficher les détails de chaque tache ici -->
-              <div>
-                <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
-                  <% if participation.participating == true %>
-                    <div>
-                    <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
-                    </div>
-                    <% elsif participation.participating == nil %>
-                    <div>
-                    <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
-                    </div>
-                    <% else  %>
-                    <div>
-                      <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
-                    </div>
-
                         <%# Derniere carte %>
                   <div class="section">
                     <div class="section_header">
@@ -173,15 +120,15 @@
                             <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
                               <% if participation.participating == true %>
                                 <div>
-                                <i class="fa-solid fa-user-check" style="color: #2bd1f3;"></i>
+                                <i class="fa-solid fa-user-check" style="color: #2BD1F3;"></i>
                                 </div>
                                 <% elsif participation.participating == nil %>
                                 <div>
-                                <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2bd1f3;"></i>
+                                <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2BD1F3;"></i>
                                 </div>
                                 <% else  %>
                                 <div>
-                                  <i class="fa-solid fa-user-xmark fa-beat" style="color: #f74572;"></i>
+                                  <i class="fa-solid fa-user-xmark fa-beat" style="color: #F74572;"></i>
                                 </div>
                               <% end %>
                             <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
@@ -190,10 +137,7 @@
                       <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
                   </div>
                 </div>
-
               </div>
-
-
               <!-- Modal review -->
                       <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -221,11 +165,6 @@
                           </div>
                         </div>
                       </div>
-
-
-
-
-
                       <%# Modal chatroom %>
                       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -268,12 +207,6 @@
                 </div>
               </div>
             </div>
-
-
-
-
-
-
 <%# Modal tricount %>
         <div class="modal fade" id="tricountModal" tabindex="-1" role="dialog" aria-labelledby="tricountModalLabel" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -295,7 +228,4 @@
   </div>
 </div>
 </div>
-
-
-
 </div>
