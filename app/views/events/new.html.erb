@@ -5,8 +5,10 @@
     <div class="col-4 mb-3">
       <%= f.input :title, label: false, placeholder: "Nom de l'évènement",  input_html: { class: 'form-input' } %>
     </div>
-    <div class="col-4 mb-3">
-      <%= f.input :location, label: false, placeholder: "Adresse de l'évènement", input_html: { class: 'form-input' }%>
+    <div class="col-4 mb-3" data-controller="address-autocomplete"
+    data-address-autocomplete-apikey-value='<%= ENV["MAPBOX_API_KEY"] %>'>
+      <%= f.input :location, label: false, placeholder: "Adresse de l'évènement",
+      input_html: { class:'form-input', data: {address_autocomplete_target: "location"}, class: "d-none"}%>
     </div>
     <div class="col-4 mb-3">
       <%= f.input :date,as: :string, label: false, placeholder:"Date de l'évenement", input_html: { class: 'form-input', data: { controller: "datepicker", datepicker_target: "input" } }%>
