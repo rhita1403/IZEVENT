@@ -1,23 +1,22 @@
 
 <div class="container text-center custom-container" data-controller="displaytask">
-  <h2>Ajoutez une tâche à l'évènement <%= @event.title %></h2>
-  <%= simple_form_for [@event, @task], html: { class: 'row' } do |f| %>
+<div class="container text-center custom-container" data-controller="displaytask">
+  <form action="/events/<%=@event.id %>/add_multiple_tasks" method="get">
+    <div class="align-items-center col-6 d-flex justify-content-between mx-auto mb-4">
+      <h2 class='mb-0'>Ajouter une tâche</h2>
+      <button data-action="click->displaytask#fire" class="button-basic m-0"><i class="fas fa-plus"></i></button>
+    </div>
     <div data-displaytask-target="togglableElement">
-      <div class="col-4 mb-3">
-        <%= f.input :description, label: false, placeholder: 'Description',  input_html: { class: 'form-input' } %>
+      <div class="col-6 mb-3n mx-auto">
+        <input type="text" name="descriptions[]" placeholder="Description de la tâche" class='form-input'>
       </div>
-      <div class="col-4 mb-3">
-        <%= f.input :cost, label: false, placeholder: 'Coût', input_html: { class: 'form-input' }  %>
+      <div class="col-6 mb-3n mx-auto">
+        <input type="text" name="costs[]" placeholder="Coût de la tâche" class='form-input'>
       </div>
     </div>
-    <div class="col-6 mb-2 mx-auto" >
-      <%= f.submit "Valider la tâche", class:"button-basic" %>
+    <div class="col-6 mb-2 mx-auto">
+      <%= submit_tag("Enregistrer mes tâches", class:"button-basic") %>
     </div>
-  <% end %>
-    <button data-action="click->displaytask#fire" class="button-basic">Ajouter une nouvelle tache</button>
-  <p><%= link_to "Je n'ai plus de tâches à ajouter", event_path(@event), class: 'button-basic' %></p>
-</div>
+  </form>
 
-<%# <div data-controller="toggle" class="mt-5">
-  <button class="btn btn-outline-primary">Add a new monument</button>
-  <%= render "form", monument: @monument %>
+</div>
