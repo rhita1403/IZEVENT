@@ -115,6 +115,8 @@ body {
     background-color: #4883f9;
     padding: 2rem 5px 1rem 5px;
     border-radius: 15px 15px 0px 0px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .map {
@@ -129,32 +131,24 @@ body {
   margin-left: 10px;
 }
 
-.tricount {
+.tricount_info {
   background-color: #3f495d;
-  border-radius: 20px;
+  border-radius: 15px;
   width: 20rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 5px;
 
-  .btn {
-    margin: 1rem 0px;
-  }
-
-
-  .tricount_info {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    .btn {
+      margin: 1rem 0px;
+    }
 
     .total {
       font-weight: 800;
       font-size: 2rem;
     }
   }
-}
 
 
 // Task
@@ -164,7 +158,6 @@ body {
 }
 
 .task {
-  // display: flex;
   margin: 5px 0px;
   border-radius: 5px;
   display: flex;
@@ -185,8 +178,6 @@ body {
 
   .link_box {
     display: flex;
-    background-color: #272f41;
-    border-radius: 5px;
   }
 }
 
@@ -220,6 +211,7 @@ body {
 .fa-square-plus {
   color: white;
   margin-left: 1rem;
+  margin-bottom: 14px
 }
 
 .fa-square-plus:hover {
@@ -239,8 +231,22 @@ body {
   color: #6594b9;
 }
 
+// Modal
+
 .modal-content {
-  color: black;
+  color: rgb(216, 216, 216);
+  border-radius: 10px;
+  background-color: #3f495d;
+
+  .btn {
+    background-color: #637292;
+    border: none;
+  }
+
+  .btn:hover {
+    background-color: #949eb5;
+    color: #313b51;
+  }
 }
 
 .map .section_header {
@@ -250,5 +256,17 @@ body {
 .section_header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
+}
+
+ul {
+  text-align: left;
+}
+
+.special_blue {
+  color: #50ABD2;
+}
+
+.liste_invite {
+  width: 318px;
 }
