@@ -3,17 +3,19 @@
     <div class="container custom-container d-flex flex-column align-items-center" data-controller= 'checkbox'>
       <h2 class="mb-5">Ajouter les invités à l'évènement</h2>
       <form action="/events/<%=@event.id %>/add_multiple_participations" method="get" >
-        <% @users.each do |user| %>
-          <div class="col mb-3 mx-5 d-flex align-items-center" style="gap:8px">
-            <div data-action='click->checkbox#check' class="user-initials" style="background-color: <%= user.blue_color %>;">
-              <%= user.initials %>
-              <input type="checkbox" name="users[]" value="<%=user.id%>" class="d-none">
+        <div class="sous-colonne">
+          <% @users.each do |user| %>
+            <div class="col mb-3 mx-5 d-flex align-items-center" style="gap:8px">
+              <div data-action='click->checkbox#check' class="user-initials" style="background-color: <%= user.blue_color %>;">
+                <%= user.initials %>
+                <input type="checkbox" name="users[]" value="<%=user.id%>" class="d-none">
+              </div>
+              <%= " " %> <%= user.first_name %> <%= user.last_name %>
             </div>
-            <%= " " %> <%= user.first_name %> <%= user.last_name %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
 
-        <div class="col mb-2 mx-auto">
+        <div class="col mb-2 mx-auto d-flex justify-content-center">
           <%= submit_tag("Ajouter les participants", class: "button-basic") %>
         </div>
       </form>
