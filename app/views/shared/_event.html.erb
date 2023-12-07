@@ -14,8 +14,8 @@
           <% end %>
           <h6 style="text-transform: capitalize; font-weight: bolder; width: 80%"><%=link_to event.title, event_path(event)%></h6>
           <p style="text-transform: capitalize; font-size: 14px;"><%=event.location %></p>
-          <p style="font-size: 14px;"><%=event.date.strftime("%B, %dth, %Y") %></p>
-          <p style="font-size: 14px; width: 80%"><%=event.description %></p>
+          <p style="font-size: 14px;"><%=event.date.strftime("%d/%m/%Y") %></p>
+          <p style="font-size: 14px; width: 80%; text-align: justify;"><%=event.description %></p>
           <% if participation %>
             <div class="cancel-link-container">
               <%= link_to decline_participation_path(participation), data: { turbo_method: :patch } do %>
