@@ -1,5 +1,5 @@
 .invitation {
-  background-color: #637292;
+  background-color: #50abd2;
   color: white;
   border-radius: 10px;
   text-decoration: none;
@@ -11,6 +11,7 @@
   border-radius: 10px;
   text-decoration: none;
 }
+
 
 .card-body {
   position: relative;
@@ -51,10 +52,23 @@
 
 .card-body a {
   text-decoration: none;
-  color: white;
+  color: #50abd2;
 }
 
 .card-body a:hover {
+  text-decoration: underline;
+}
+
+.invitation a {
+  color: white;
+  margin-bottom: 0px;
+}
+
+.invitation h6 {
+  margin: 0px;
+}
+
+.invitation a:hover {
   text-decoration: underline;
 }
 
