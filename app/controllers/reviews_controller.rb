@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     @review.save
     if @review.save
-      redirect_to event_path(@event)
+      redirect_to dashboard_path
     else
       render :new, status: :unprocessable_entity
     end

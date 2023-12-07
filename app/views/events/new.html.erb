@@ -3,25 +3,16 @@
     <div class="container custom-container col-6 mb-3n">
       <h2>Créez votre évènement</h2>
       <%= simple_form_for @event do |f| %>
-        <div class="mx-auto">
-          <%= f.input :title, label: false, placeholder: "Nom de l'évènement",  input_html: { class: 'form-input' } %>
-        </div>
-        <div class="mx-auto">
-          <%= f.input :date,as: :string, label: false, placeholder:"Date de l'évenement", input_html: { class: 'form-input', data: { controller: "datepicker", datepicker_target: "input" } }%>
-        </div>
-      <div class="mx-auto">
-        <%= f.input :description, label: false, placeholder: "Description de l'évènement",  input_html: { class: 'form-input-description' } %>
-      </div>
-      <div class="mx-auto">
-          <%= f.input :location, label: false,
-          input_html: { class:'form-input d-none', data: {address_autocomplete_target: "address"}},
-          wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}%>
-        </div>
-        <div class="col-6 mb-2 mt-3 mx-auto text-align-center ">
+        <%= f.input :title, label: false, placeholder: "Nom de l'évènement",  input_html: { class: 'form-input mx-auto' } %>
+        <%= f.input :date,as: :string, label: false, placeholder:"Date de l'évenement", input_html: { class: 'form-input mx-auto', data: { controller: "datepicker", datepicker_target: "input" } }%>
+        <%= f.input :description, label: false, placeholder: "Description de l'évènement",  input_html: { class: 'form-input-description mx-auto' } %>
+        <%= f.input :location, label: false,
+        input_html: { class:'form-input d-none mx-auto', data: {address_autocomplete_target: "address"}},
+        wrapper_html: {data: {controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"]}}%>
+        <div class=" col-6 mb-2 mt-3 mx-auto ">
           <%= f.submit "Etape suivante", class: 'button-basic' %>
         </div>
       <% end %>
-    </div>
     </div>
   </div>
   <div class="background-b-right" style='background-image: url(<%= asset_path "back-right.png" %>);'>
