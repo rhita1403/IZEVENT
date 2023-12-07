@@ -93,7 +93,7 @@
                 <p><% if task.user.present? %>
                   <p>
                   <div class="user-initials" style="background-color: <%= current_user.blue_color %>; width: 26px; height: 26px; font-weight: normal;">
-                    <%= current_user.initials_small %>
+                    <%= task.user.initials_small %>
                   </div>
                   </p>
                   <% else %>

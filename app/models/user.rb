@@ -23,7 +23,7 @@ class User < ApplicationRecord
   end
 
   def initials_small
-    "#{first_name[0]}.#{last_name[0]}.".downcase
+    "#{first_name[0]}.#{last_name[0]}".downcase
   end
 
   def random_color
@@ -35,7 +35,6 @@ class User < ApplicationRecord
   end
 
   def blue_color
-    "#4783F9"
+    "#50ABD2"
   end
 end
-
