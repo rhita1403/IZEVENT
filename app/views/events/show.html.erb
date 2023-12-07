@@ -1,6 +1,6 @@
 <%# Navbar %>
 <div class="row">
-  <div class="col-3">
+  <div class="col-3" style="width:360px !important;">
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white sidebar ">
           <div class="mx-auto">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
@@ -29,19 +29,17 @@
   <div class="col-9 show_grid">
     <button class="chat_bubble" data-toggle="modal" data-target="#exampleModal"><i class="fa-regular fa-message"></i></button>
     <%# Troisieme carte %>
-    <div class="section">
+    <div class="section" style="width:500px">
       <h3 style="text-transform: capitalize"><%= @event.title %></h3>
       <div class="show_section map">
         <div class="section_header">
-          <div>
-            <% if @event.reviews.count > 0 %>
-              <div data-toggle="modal" data-target="#reviewsModal">
-                <% average_rating.times do %>
-                    <i class="fa-solid fa-star"></i>
-                <% end %>
-            <% end %>
-              </div>
-
+          <% if @event.reviews.count > 0 %>
+            <div data-toggle="modal" data-target="#reviewsModal">
+              <% average_rating.times do %>
+                  <i class="fa-solid fa-star"></i>
+               <% end %>
+              <% end %>
+            </div>
           <p> <%= @event.location %></p>
           <p style="font-size: 14px;"><%=@event.date.strftime("%d/%m/%Y") %></p>
           <p style="text-transform: capitalize; font-size: 14px; width: 80%"><%=@event.description %></p>
@@ -54,9 +52,9 @@
       </div>
     </div>
     <%# Quatrieme et derniere carte %>
-    <div class="section">
+    <div class="section" >
         <h3>Pot commun</h3>
-        <div class="tricount_info">
+        <div class="tricount_info" style="width:450px">
           <p><strong>Coût total :</strong></p>
           <span class="total">
             <%= total_cost.round(2) %>€
@@ -68,7 +66,7 @@
         </div>
     </div>
       <%# Deuxieme carte %>
-    <div class="section">
+    <div class="section" style="width:500px">
       <div class="section_header">
         <h3>Liste de tâches</h3>
         <%= link_to new_event_task_path(@event) do%>
@@ -113,7 +111,7 @@
                     </div>
                   </div>
                         <%# Derniere carte %>
-                  <div class="section liste_invite">
+                  <div class="section liste_invite" style="width:450px">
                     <div class="section_header">
                       <h3>Liste des invités</h3>
                       <% if @user.id == current_user.id %>
