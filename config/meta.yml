@@ -1,9 +1,9 @@
 meta_product_name: "Izevent"
 
-meta_title: "Izevent – Organiser votre event, c'est easy!"
+meta_title: "Izevent | Organiser votre event, c'est easy !"
 
 meta_description: "En quelques clics, vous pouvez créer votre event, y inviter vos collègues, faire un suivi des to-dos et des dépenses de chacun! Organiser un event n'aura jamais été aussi facile."
 
-meta_image: "back-right.png" # should exist in `app/assets/images/`
+meta_image: "izevent-og.png" # should exist in `app/assets/images/`
 
 twitter_account: "@product_twitter_account" # required for Twitter Cards
