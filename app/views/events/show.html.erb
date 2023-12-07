@@ -38,7 +38,7 @@
           <% end %>
           <p> <%= @event.location %></p>
           <p style="font-size: 14px;"><%=@event.date.strftime("%d/%m/%Y") %></p>
-          <p style="text-transform: capitalize; font-size: 14px; width: 80%"><%=@event.description %></p>
+          <p style="font-size: 14px; width: 80%"><%=@event.description %></p>
         </div>
         <div style="width: 100%; height: 150px;"
           data-controller="map"
@@ -176,12 +176,22 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
+                  <span class="special_blue">
                     <h5 class="modal-title" id="exampleModalLabel">Chatroom</h5>
+                  </span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
+                    <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
+                      <%= f.input :content,
+                        label: false,
+                        placeholder: "Message ##{@chatroom.name}",
+                        wrapper_html: {class: "flex-grow-1"}
+                      %>
+                      <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+                    <% end %>
+                    <div class="modal-body">
                     <div id = "chatroom" class="section">
                     <div class="container chatroom"
                     data-controller="chatroom-subscription"
@@ -198,14 +208,6 @@
                         </div>
                       <% end %>
                     </div>
-                    <%= simple_form_for [@event, @chatroom, @message], html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f| %>
-                      <%= f.input :content,
-                        label: false,
-                        placeholder: "Message ##{@chatroom.name}",
-                        wrapper_html: {class: "flex-grow-1"}
-                      %>
-                      <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-                    <% end %>
                       </div>
                     </div>
                   </div>
@@ -227,9 +229,11 @@
     <div class="modal-body">
       <div id = "tricount" class="section">
         <% @event.users.each do |user| %>
-        <%= user.first_name %> <%= user.last_name %> :
+        <hr>
+        <%= user.first_name %> <%= user.last_name %>
         <p><strong>Montant dépensé : </strong><%= (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum).round(2)%>€ | <strong>Montant dû : </strong><%= (average_cost_per_user - (Task.where(user: user, event: @event).map {|element| element.cost.to_f}.sum)).round(2)%>€</p>
         <% end %>
+        <hr>
       </div>
     </div>
   </div>
