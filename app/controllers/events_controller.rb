@@ -13,6 +13,7 @@ class EventsController < ApplicationController
     authorize @event
     @tasks = @event.tasks.order(created_at: :desc)
     @participations = @event.participations
+    @user = @event.user
     if @event.geocode
       @marker = [
       lat: @event.geocode[0],
