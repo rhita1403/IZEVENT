@@ -1,14 +1,20 @@
-<div class="container text-center custom-container">
-  <h2>Partagez votre avis sur l'évènement <%= @event.title %></h2>
-  <%= simple_form_for [@event, @review] do |f| %>
-    <div class="col-4 mb-3 mx-auto">
-    <%= f.input :rating, label: false, placeholder: "Donnez une note sur 5 à cet évènement", input_html: { class: 'form-input' }, collection: 0..5, include_blank: "Choisissez une note" %>
+<div class="d-flex">
+  <div class="background-b-left">
+    <div class="container text-center custom-container">
+      <h2>Partagez votre avis sur l'évènement <%= @event.title %></h2>
+      <%= simple_form_for [@event, @review] do |f| %>
+        <div class="col-4 mb-3 mx-auto">
+        <%= f.input :rating, label: false, placeholder: "Donnez une note", input_html: { class: 'form-input' }, collection: 0..5, include_blank: "Donnez une note sur 5" %>
+        </div>
+        <div class="col-4 mb-3 mx-auto">
+          <%= f.input :feedback, label: false, placeholder: "Un commentaire ?", input_html: { class: 'form-input-description' }  %>
+        </div>
+        <div class="col-6 mb-2 mx-auto">
+          <%= f.submit "Envoyer votre avis", class: 'button-basic' %>
+        </div>
+      <% end %>
     </div>
-    <div class="col-4 mb-3 mx-auto">
-      <%= f.input :feedback, label: false, placeholder: "Qu'avez-vous pensé de cet évènement?", input_html: { class: 'form-input' }  %>
+  </div>
+    <div class="background-b-right" style='background-image: url(<%= asset_path "back-right.png" %>);'>
     </div>
-    <div class="col-6 mb-2 mx-auto">
-      <%= f.submit "Envoyer votre avis", class: 'button-basic' %>
-    </div>
-  <% end %>
 </div>
