@@ -1,12 +1,13 @@
 .chatroom {
-  background: white;
   // margin-top: 9px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  color: black;
+  color: rgb(216, 216, 216);
+  border-radius: 10px;
+  background-color: #3f495d;
 
   // taille originale element chatroom: calc(100vh - 75px)
 

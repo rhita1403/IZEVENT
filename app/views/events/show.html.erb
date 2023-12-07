@@ -10,17 +10,18 @@
             <% end %>
           </div>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-        <div class="mx-auto">
-        <img src="https://github.com/mdo.png" alt="" width="100" height="100" class="rounded-circle me-2 sidebar_img">
+        <div class="container">
+          <div class="row">
+            <ul class="nav nav-pills flex-column mb-auto">
+            <span class="special_blue">
+              <h4 style="text-transform: capitalize">Hello <%= current_user.first_name %></h4>
+            </span>
+              <li class="nav-item">
+                <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
+              </li>
+            </ul>
+          </div>
         </div>
-          <li class="nav-item">
-            <%= link_to "Tableau de bord", dashboard_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Menu", root_path, class: "nav-link" %>
-          </li>
-        </ul>
         <hr>
             <li class="nav-item p-3"><strong><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %></strong></li>
     </div>
@@ -30,6 +31,8 @@
     <%# Troisieme carte %>
     <div class="section">
       <h3><%= @event.title %></h3>
+      <div class="show_section map">
+        <div class="section_header">
           <div>
             <% if @event.reviews.count > 0 %>
               <div data-toggle="modal" data-target="#reviewsModal">
@@ -37,11 +40,11 @@
                     <i class="fa-solid fa-star"></i>
                 <% end %>
             <% end %>
-          </div>
-      <div class="show_section map">
-        <div class="section_header">
+              </div>
+
           <p> <%= @event.location %></p>
-          <p><%= @event.date %></p>
+          <p style="font-size: 14px;"><%=@event.date.strftime("%B, %dth, %Y") %></p>
+          <p style="text-transform: capitalize; font-size: 14px; width: 80%"><%=@event.description %></p>
         </div>
         <div style="width: 100%; height: 150px;"
           data-controller="map"
@@ -51,10 +54,8 @@
       </div>
     </div>
     <%# Quatrieme et derniere carte %>
-    <div class="section tricount">
-        <div class="section_header">
-          <h2>Tricount</h2>
-        </div>
+    <div class="section">
+        <h3>Pot commun</h3>
         <div class="tricount_info">
           <p><strong>Coût total :</strong></p>
           <span class="total">
@@ -68,11 +69,13 @@
     </div>
       <%# Deuxieme carte %>
     <div class="section">
-      <h3>Liste de taches</h3>
-      <div class="show_section">
+      <div class="section_header">
+        <h3>Liste de taches</h3>
         <%= link_to new_event_task_path(@event) do%>
           <i class="fa-regular fa-square-plus fa-lg" style="color: #305C7E";></i>
         <% end %>
+      </div>
+      <div class="show_section">
         <div class="task_container">
           <% @tasks.each do |task| %>
               <!-- Afficher les détails de chaque tache ici -->
@@ -110,31 +113,31 @@
                     </div>
                   </div>
                         <%# Derniere carte %>
-                  <div class="section">
+                  <div class="section liste_invite">
                     <div class="section_header">
                       <h3>Liste des invites</h3>
+                      <p><%= link_to new_event_participation_path(@event) do %></p>
+                        <i class="fa-regular fa-square-plus fa-lg" style="color: #305C7E";></i>
+                      <% end %>
                     </div>
                       <% @participations.each do |participation| %>
                           <!-- Afficher les détails de chaque tache ici -->
-                          <div>
+                          <div class="task">
                             <p><%= participation.user.first_name %> <%= participation.user.last_name %></p>
-                              <% if participation.participating == true %>
-                                <div>
-                                <i class="fa-solid fa-user-check" style="color: #2BD1F3;"></i>
-                                </div>
-                                <% elsif participation.participating == nil %>
-                                <div>
-                                <i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2BD1F3;"></i>
-                                </div>
-                                <% else  %>
-                                <div>
-                                  <i class="fa-solid fa-user-xmark fa-beat" style="color: #F74572;"></i>
-                                </div>
-                              <% end %>
-                            <p><%= link_to "Supprimer cet invite", destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"}%></p>
+                              <div class="link_box">
+                                <% if participation.participating == true %>
+                                  <p><i class="fa-solid fa-user-check" style="color: #2BD1F3;"></i></p>
+                                  <% elsif participation.participating == nil %>
+                                  <p><i class="fa-solid fa-spinner fa-spin-pulse" style="color: #2BD1F3;"></i></p>
+                                  <% else  %>
+                                  <p><i class="fa-solid fa-user-xmark fa-beat" style="color: #F74572;"></i></p>
+                                <% end %>
+                                                            <%= link_to destroy_participation_path(participation), data: {turbo_method: :delete, turbo_confirm: "Êtes-vous sûr ?"} do%>
+                                <i class="fa-solid fa-trash"></i>
+                                                            <% end %>
+                              </div>
                           </div>
                       <% end %>
-                      <p><%= link_to "Ajouter un invité", new_event_participation_path(@event) %></p>
                   </div>
                 </div>
               </div>
@@ -181,7 +184,9 @@
                     data-controller="chatroom-subscription"
                     data-chatroom-subscription-chatroom-id-value="<%= @chatroom.id %>"
                     >
-                    <h1>#<%= @chatroom.name %></h1>
+                    <span class="special_blue">
+                      <h1>#<%= @chatroom.name %></h1>
+                    </span>
                     <div class="messages" data-chatroom-subscription-target="messages">
                       <% @chatroom.messages.each do |message| %>
                         <div id="message-<%= message.id %>">
@@ -212,7 +217,9 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="tricountModalLabel">Tricount</h5>
+      <span class="special_blue">
+        <h5 class="modal-title" id="tricountModalLabel">Tricount</h5>
+      </span>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
