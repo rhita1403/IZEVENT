@@ -22,3 +22,8 @@
   position: fixed;
   right: 0;
 }
+
+.sous-colonne{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
