@@ -20,3 +20,17 @@
   color: #001A33;
   margin-bottom: 2em;
 }
+
+.input-group {
+  position: relative;
+  display: inline-block;
+}
+
+.input-group::after {
+  content: "€";
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust as needed */
+  transform: translateY(-50%);
+  color: #555; /* Adjust color as needed */
+}
