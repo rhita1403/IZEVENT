@@ -4,7 +4,6 @@
       <form action="/events/<%=@event.id %>/add_multiple_tasks" method="get">
         <div class="align-items-center col-6 d-flex justify-content-between mx-auto mb-4">
           <h2 class='mb-0'>Ajouter une tâche</h2>
-          <button data-action="click->displaytask#fire" class="button-basic m-0"><i class="fas fa-plus"></i></button>
         </div>
         <div data-displaytask-target="togglableElement">
           <div class="col-6 mb-3n mx-auto">
@@ -15,12 +14,12 @@
           </div>
         </div>
         <div class="col-6 mb-2 mx-auto">
+          <button data-action="click->displaytask#fire" class="button-basic m-0"><i class="fas fa-plus"></i></button>
           <%= submit_tag("Enregistrer mes tâches", class:"button-basic") %>
         </div>
       </form>
     </div>
   </div>
-  
-  <div class="background-b-right" style='background-image: url(<%= asset_path "back-right.png" %>);'>
-  </div>
+    <div class="background-b-right" style='background-image: url(<%= asset_path "back-right.png" %>);'>
+    </div>
 </div>
