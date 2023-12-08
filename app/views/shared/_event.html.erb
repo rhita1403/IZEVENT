@@ -12,7 +12,7 @@
               <% end %>
             </div>
           <% end %>
-          <h6 style="text-transform: capitalize; font-weight: bolder; width: 80%"><%=link_to event.title, event_path(event)%></h6>
+          <h6 style="font-weight: bolder; width: 80%"><%=link_to event.title.capitalize, event_path(event)%></h6>
           <p style="text-transform: capitalize; font-size: 14px;"><%=event.location %></p>
           <p style="font-size: 14px;"><%=event.date.strftime("%d/%m/%Y") %></p>
           <p style="font-size: 14px; width: 80%; text-align: justify;"><%=event.description %></p>
